@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ttrampolim</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* Ttrampolim: base neutra, roxo como único destaque; cada empresa traz a própria cor no seu card.
+     Layout: hero → fases → vitrine de cards → página de cada empresa (#id) → painel do master */
+  --ink:#16131F;
+  --paper:#FAFAF8;
+  --card:#FFFFFF;
+  --line:#E7E4EC;
+  --muted:#5F5A6B;
+  --accent:#F7E135;
+  --on-accent:#16131F;
+  --display:"Sora", "Arial Black", system-ui, sans-serif;
+  --body:"Manrope", "Segoe UI", system-ui, sans-serif;
+  color-scheme: light;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+img{max-width:100%}
+h1,h2,h3{font-family:var(--display);line-height:1.08;margin:0;text-wrap:balance;letter-spacing:-.035em}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+:focus-visible{outline:3px solid var(--ink);outline-offset:3px;border-radius:6px}
+[hidden]{display:none !important}
+
+header.top{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--paper) 90%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;height:68px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none}
+.brand img{height:48px;width:auto;display:block}
+nav.main{display:flex;gap:4px;flex-wrap:wrap;align-items:center}
+nav.main a,nav.main button{font:inherit;text-decoration:none;font-weight:700;font-size:15px;padding:8px 14px;border-radius:999px;border:0;background:none;color:var(--ink);cursor:pointer}
+nav.main a:hover,nav.main button:hover{background:var(--line)}
+nav.main a.cta{background:var(--ink);color:#fff}
+nav.main a.cta:hover{background:var(--accent);color:var(--on-accent)}
+nav.main .master{border:1.5px solid var(--line)}
+nav.main .master.on{background:var(--accent);color:var(--on-accent);border-color:var(--ink)}
+
+.hero{padding:72px 0 48px}
+.hero-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:40px;align-items:center}
+.eyebrow{display:inline-flex;font-weight:800;font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;border:1.5px solid var(--ink);padding:6px 12px;border-radius:999px}
+.hero h1{font-size:clamp(42px,6.6vw,86px);font-weight:800;margin:20px 0}
+.hero h1 .hl{background:linear-gradient(transparent 58%, var(--accent) 58%, var(--accent) 92%, transparent 92%);padding:0 .06em}
+.lead{font-size:20px;max-width:56ch;color:var(--muted);margin:0 0 28px}
+.btns{display:flex;gap:12px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font:inherit;font-weight:800;text-decoration:none;padding:13px 22px;border-radius:999px;border:2px solid var(--ink);font-size:15.5px;cursor:pointer;background:transparent;color:var(--ink)}
+.btn.solid{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.btn.solid:hover{background:var(--ink);border-color:var(--ink);color:#fff}
+.btn:not(.solid):hover{background:var(--ink);color:#fff}
+.btn.sm{padding:8px 14px;font-size:14px;border-width:1.5px}
+.hero-art{aspect-ratio:1/1;max-width:420px;justify-self:end;width:100%;border-radius:32px;display:block}
+.stats{display:flex;gap:32px;flex-wrap:wrap;margin-top:40px}
+.stat b{display:block;font-family:var(--display);font-size:40px;line-height:1;font-variant-numeric:tabular-nums}
+.stat span{font-size:14px;color:var(--muted);font-weight:700}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-46px)}}
+.ball{animation:bounce 1.6s cubic-bezier(.5,0,.5,1) infinite;transform-box:fill-box;transform-origin:center}
+
+section{padding:56px 0;scroll-margin-top:72px}
+.sec-head{display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap;margin-bottom:28px}
+.sec-head h2{font-size:clamp(30px,4.2vw,50px);font-weight:800}
+.sec-head p{max-width:46ch;color:var(--muted);margin:0}
+
+.phases{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.phase{background:var(--card);border:1.5px solid var(--ink);border-radius:20px;padding:22px;display:flex;flex-direction:column;gap:8px}
+.phase .n{font-weight:800;font-size:13px;letter-spacing:.06em;text-transform:uppercase;display:flex;justify-content:space-between;align-items:center}
+.phase .dot{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;border:1.5px solid var(--ink);font-size:15px}
+.phase h3{font-size:28px}
+.phase .sub{font-weight:800;font-size:13px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.phase p{margin:0;font-size:15px;color:var(--muted)}
+.phase .count{margin-top:auto;font-weight:800;font-size:14px;padding-top:8px}
+.bar{height:6px;border-radius:999px;background:var(--line);overflow:hidden}
+.bar i{display:block;height:100%;background:var(--ink)}
+
+.filters{display:flex;gap:8px;flex-wrap:wrap}
+.chip{font:inherit;font-weight:800;font-size:14px;padding:8px 15px;border-radius:999px;border:1.5px solid var(--ink);background:var(--card);cursor:pointer;color:var(--ink)}
+.chip[aria-pressed="true"]{background:var(--ink);color:#fff}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px}
+.co{position:relative;background:var(--card);border:1.5px solid var(--line);border-radius:22px;overflow:hidden;display:flex;flex-direction:column;cursor:pointer;transition:transform .15s ease, box-shadow .15s ease, border-color .15s ease}
+.co:hover{transform:translateY(-3px);border-color:var(--c);box-shadow:0 14px 30px -18px var(--c)}
+.co{border-top:5px solid var(--c)}
+.co-head{display:flex;gap:14px;align-items:center}
+.circles{display:flex;flex:none;align-items:center}
+.circ{width:78px;height:78px;border-radius:50%;display:grid;place-items:center;overflow:hidden;border:2px solid var(--c);padding:10px;flex:none;box-shadow:0 0 0 3px var(--card);position:relative}
+.circ + .circ{margin-left:-14px}
+.circ:first-child{z-index:1}
+.circ img{max-width:100%;max-height:100%;object-fit:contain;display:block}
+.circ .ini{font-family:var(--display);font-weight:800;font-size:24px;letter-spacing:-.04em}
+.circles.big .circ{width:150px;height:150px;padding:18px;border-width:3px;box-shadow:0 0 0 5px var(--paper)}
+.circles.big .circ + .circ{margin-left:-26px}
+.circles.big .circ .ini{font-size:46px}
+.co-body{padding:20px 22px 22px;display:flex;flex-direction:column;gap:14px;flex:1}
+.co-title{display:flex;justify-content:space-between;gap:10px;align-items:start}
+.co h3{font-size:22px}
+.seg{font-size:14px;color:var(--muted);font-weight:700;margin-top:3px}
+.co p{margin:0;font-size:15.5px}
+.why{border-left:3px solid var(--c);padding:2px 0 2px 12px;font-size:14.5px}
+.why b{display:block;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:2px}
+.pill{display:inline-flex;align-items:center;gap:7px;font-weight:800;font-size:12px;padding:5px 11px;border-radius:999px;border:1.5px solid var(--ink);text-transform:uppercase;letter-spacing:.05em;background:var(--card);white-space:nowrap}
+.pill i{width:9px;height:9px;border-radius:50%;border:1.5px solid var(--ink)}
+.track{display:grid;grid-template-columns:repeat(4,1fr);gap:4px}
+.track i{height:5px;border-radius:999px;background:var(--line)}
+.co-foot{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:auto;flex-wrap:wrap}
+.more{font-weight:800;text-decoration:none;border-bottom:2px solid var(--c);padding-bottom:1px}
+.edit-btn{position:absolute;top:12px;right:12px;font:inherit;font-weight:800;font-size:13px;background:var(--ink);color:#fff;border:0;border-radius:999px;padding:7px 12px;cursor:pointer;z-index:2}
+.edit-btn:hover{background:var(--accent);color:var(--on-accent)}
+.mpill{display:inline-flex;align-items:center;gap:6px;font-weight:800;font-size:12px;padding:5px 11px;border-radius:999px;text-transform:uppercase;letter-spacing:.05em;white-space:nowrap}
+.mpill.em{background:var(--accent);color:var(--on-accent);border:1.5px solid var(--ink)}
+.mpill.busca{border:1.5px dashed var(--ink);background:var(--card)}
+.pills{display:flex;gap:6px;flex-wrap:wrap}
+.filters .sep{width:1px;background:var(--line);margin:0 4px}
+.empty{grid-column:1/-1;color:var(--muted);font-weight:600;padding:12px 0}
+.mentor-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.mcard{background:var(--card);border:1.5px solid var(--ink);border-radius:20px;padding:24px;display:flex;flex-direction:column;gap:10px}
+.mcard.hl{background:var(--accent)}
+.mcard h3{font-size:22px}
+.mcard p{margin:0;font-size:15.5px}
+.mcard ul{margin:0;padding-left:18px;font-size:15px}
+.mcard .btn{margin-top:auto;align-self:flex-start}
+.co.open{border-style:dashed;border-color:var(--muted);cursor:default;justify-content:center;padding:28px;gap:14px;background:transparent}
+.co.open:hover{transform:none;box-shadow:none;border-color:var(--ink)}
+
+.how{background:var(--ink);color:#fff;border-radius:32px;padding:56px 40px;margin:0 24px}
+.how .sec-head p{color:#C3BECF}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.step{border-top:3px solid var(--accent);padding-top:18px}
+.step b{font-family:var(--display);font-size:21px;display:block;margin-bottom:6px}
+.step p{margin:0;color:#D2CDDD;font-size:15.5px}
+
+form.apply{display:grid;grid-template-columns:1fr 1fr;gap:16px;background:var(--card);border:1.5px solid var(--ink);border-radius:24px;padding:28px}
+label.f{display:flex;flex-direction:column;gap:6px;font-weight:800;font-size:14px}
+label.f input,label.f select,label.f textarea{font:inherit;font-weight:500;padding:11px 13px;border:1.5px solid var(--line);border-radius:12px;background:var(--paper);color:var(--ink);width:100%}
+label.f input:focus,label.f select:focus,label.f textarea:focus{border-color:var(--ink);outline:none}
+label.f small{font-weight:500;color:var(--muted)}
+.full{grid-column:1/-1}
+.note{font-size:14px;color:var(--muted)}
+.msg{border-radius:12px;padding:12px 16px;font-weight:700;background:var(--ink);color:#fff}
+.msg.err{background:#B42318}
+
+.detail{padding:32px 0 72px}
+.back{font-weight:800;text-decoration:none;display:inline-flex;gap:6px;margin-bottom:22px}
+.back:hover{text-decoration:underline;text-decoration-color:var(--accent);text-decoration-thickness:3px}
+.d-head{display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap;padding:8px 0 32px;border-bottom:1.5px solid var(--ink)}
+.d-id{display:flex;gap:28px;align-items:center;flex-wrap:wrap}
+.d-head h1{font-size:clamp(36px,5.4vw,64px);font-weight:800;margin-top:12px}
+.d-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:40px;margin-top:36px}
+.d-grid h2{font-size:22px;margin:0 0 10px}
+.d-block{margin-bottom:30px}
+.d-block p{margin:0 0 10px;max-width:62ch}
+.d-block ul{margin:0;padding-left:20px}
+.d-block li{margin-bottom:6px}
+aside.d-side{display:flex;flex-direction:column;gap:16px}
+.box{background:var(--card);border:1.5px solid var(--ink);border-radius:20px;padding:20px}
+.box h3{font-size:17px;margin-bottom:12px}
+.journey{display:flex;flex-direction:column;gap:10px}
+.j{display:flex;gap:12px;align-items:center;font-weight:700}
+.j .jd{width:28px;height:28px;border-radius:50%;border:1.5px solid var(--ink);display:grid;place-items:center;font-size:13px;font-weight:800;flex:none;background:var(--card)}
+.j.past{color:var(--muted)}
+.facts{display:grid;grid-template-columns:auto 1fr;gap:8px 14px;font-size:15px;margin:0}
+.facts dt{color:var(--muted);font-weight:700}
+.facts dd{margin:0;font-weight:800;overflow-wrap:anywhere}
+.site-btn{background:var(--c);border-color:var(--c);color:var(--ct)}
+.site-btn:hover{filter:brightness(.9)}
+
+/* painel do master */
+.modal{position:fixed;inset:0;background:rgba(22,19,31,.55);z-index:50;display:flex;justify-content:flex-end}
+.sheet{background:var(--paper);width:min(640px,100%);height:100%;overflow-y:auto;padding:28px;display:flex;flex-direction:column;gap:16px}
+.sheet h2{font-size:26px}
+.sheet .row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.logo-prev{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.logo-prev img{height:56px;border:1px solid var(--line);border-radius:10px;padding:6px;background:#fff}
+.sheet-actions{display:flex;gap:10px;flex-wrap:wrap;position:sticky;bottom:-28px;background:var(--paper);padding:16px 0 4px;border-top:1px solid var(--line)}
+.danger{border-color:#B42318;color:#B42318}
+.danger:hover{background:#B42318 !important;color:#fff !important}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:60;max-width:90vw}
+.master-bar{background:var(--accent);color:var(--on-accent);font-weight:700;font-size:14.5px}
+.master-bar .wrap{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding-top:10px;padding-bottom:10px}
+.master-bar button{font:inherit;font-weight:800;background:var(--ink);color:#fff;border:0;border-radius:999px;padding:7px 14px;cursor:pointer}
+
+.mgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px}
+.mentor{background:var(--card);border:1.5px solid var(--ink);border-radius:22px;padding:22px;display:flex;flex-direction:column;gap:12px;position:relative}
+.mentor .circ{--c:var(--ink);background:var(--accent)}
+.mentor .circ img{width:100%;height:100%;object-fit:cover;border-radius:50%}
+.mentor .circ.photo{padding:0}
+.mentor h3{font-size:21px}
+.mentor p{margin:0;font-size:15px}
+.tags{display:flex;gap:6px;flex-wrap:wrap}
+.tag{font-size:12.5px;font-weight:800;padding:4px 10px;border-radius:999px;background:var(--paper);border:1px solid var(--line)}
+.checks{display:flex;gap:8px;flex-wrap:wrap}
+.checks label{display:inline-flex;gap:6px;align-items:center;font-weight:600;font-size:14.5px;border:1.5px solid var(--line);border-radius:999px;padding:7px 12px;background:var(--paper);cursor:pointer}
+.mhero{padding:56px 0 24px}
+.mhero h1{font-size:clamp(38px,5.6vw,70px);font-weight:800;margin:16px 0}
+.inbox{display:flex;flex-direction:column;gap:12px}
+.inbox .item{background:var(--card);border:1.5px solid var(--line);border-radius:16px;padding:16px;display:grid;grid-template-columns:1fr auto;gap:12px;align-items:start}
+.inbox .item p{margin:2px 0;font-size:14.5px}
+.inbox .item .acts{display:flex;gap:8px;flex-wrap:wrap}
+footer{border-top:1px solid var(--line);padding:32px 0;font-size:14px;color:var(--muted)}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+
+@media (max-width:900px){
+  .hero-grid,.d-grid{grid-template-columns:1fr}
+  .hero-art{justify-self:start;max-width:280px}
+  .phases{grid-template-columns:1fr 1fr}
+  .steps{grid-template-columns:1fr}
+  .mentor-grid{grid-template-columns:1fr}
+}
+@media (max-width:560px){
+  body{font-size:16px}
+  .wrap{padding:0 16px}
+  nav.main a:not(.cta){display:none}
+  .phases{grid-template-columns:1fr}
+  form.apply,.sheet .row{grid-template-columns:1fr}
+  form.apply{padding:20px}
+  .how{margin:0 12px;padding:40px 20px;border-radius:24px}
+  .circles.big .circ{width:104px;height:104px;padding:16px}
+  .circles.big .circ + .circ{margin-left:-18px}
+  .sheet{padding:20px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none !important;animation:none !important}}
+</style>
+</head>
+<body>
+
+<div class="master-bar" id="master-bar" hidden>
+  <div class="wrap"><span>Modo master ativo: clique em “Editar” em qualquer card ou adicione uma nova empresa.</span>
+  <span style="display:flex;gap:8px"><button type="button" id="add-co">+ Adicionar empresa</button><button type="button" id="exit-master">Sair do modo master</button></span></div>
+</div>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#inicio" aria-label="Ttrampolim, início">
+      <img src="logos/ttrampolim-mark.png" alt="Ttrampolim">
+    </a>
+    <nav class="main" aria-label="Principal">
+      <a href="#fases">Fases</a>
+      <a href="#empresas">Empresas</a>
+      <a href="#mentoria">Mentoria</a>
+      <a href="#mentores">Mentores</a>
+      <a href="#como">Como funciona</a>
+      <button type="button" class="master" id="master-btn">Entrar</button>
+      <a class="cta" href="#inscricao">Quero entrar</a>
+    </nav>
+  </div>
+</header>
+
+<main id="view-home">
+  <div class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <span class="eyebrow">Empresas · startups · projetos · mentorias</span>
+        <h1>Toda grande empresa começa com um <span class="hl">impulso</span>.</h1>
+        <p class="lead">A Ttrampolim reúne empresas, startups e projetos em um só lugar, incluindo negócios que buscam mentoria ou já estão em mentoria. Cada um mostra o que faz, por que está aqui e em que fase do salto se encontra, do primeiro passo até o voo.</p>
+        <div class="btns">
+          <a class="btn solid" href="#empresas">Conhecer as empresas →</a>
+          <a class="btn" href="#inscricao">Inscrever meu projeto</a>
+        </div>
+        <div class="stats" id="stats"></div>
+      </div>
+      <img class="hero-art" src="logos/ttrampolim-hero.png" alt="Logo Ttrampolim: silhueta de uma criança saltando sobre a palavra Ttrampolim">
+    </div>
+  </div>
+
+  <section id="fases">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>As quatro fases do salto</h2>
+        <p>Cada empresa da Ttrampolim está em uma destas fases. Ela mostra para parceiros, clientes e investidores onde o negócio está e do que precisa para subir.</p>
+      </div>
+      <div class="phases" id="phases"></div>
+    </div>
+  </section>
+
+  <section id="empresas" style="padding-top:8px">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Quem está na Ttrampolim</h2>
+        <div class="filters" id="filters" role="group" aria-label="Filtrar por fase"></div>
+      </div>
+      <div class="grid" id="grid"></div>
+    </div>
+  </section>
+
+  <section id="como">
+    <div class="how">
+      <div class="wrap" style="padding:0">
+        <div class="sec-head">
+          <h2>Como funciona</h2>
+          <p>Uma vitrine viva: cada empresa atualiza sua fase conforme avança, e quem visita entende em segundos onde pode ajudar.</p>
+        </div>
+        <div class="steps">
+          <div class="step"><b>1. Entre na plataforma</b><p>A empresa, startup ou projeto se inscreve, passa por uma conversa inicial e ganha seu card na vitrine.</p></div>
+          <div class="step"><b>2. Mostre por que está aqui</b><p>Cada card diz o que a empresa faz e o que busca: sócios, investimento, parceiros, mentoria ou clientes.</p></div>
+          <div class="step"><b>3. Suba de fase</b><p>Com apoio da rede, a empresa avança de Subida para Impulso, Salto e Voo, e sua página acompanha cada passo.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="mentoria">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Mentoria na Ttrampolim</h2>
+        <p>Além de vitrine, a Ttrampolim acompanha negócios que querem ou já estão em mentoria. Cada card mostra esse status, e dá para filtrar a vitrine por ele.</p>
+      </div>
+      <div class="mentor-grid">
+        <div class="mcard"><span class="mpill busca" style="align-self:flex-start">Busca mentoria</span><h3>Quero ser mentorado</h3><p>Para quem tem uma ideia ou um negócio e precisa de direção para dar o próximo salto.</p><ul><li>Diagnóstico da fase atual</li><li>Indicação de mentores por área</li><li>Card na vitrine com o que você busca</li></ul><a class="btn" href="#inscricao">Pedir mentoria</a></div>
+        <div class="mcard hl"><span class="mpill" style="align-self:flex-start;border:1.5px solid var(--ink);background:var(--card)">Em mentoria</span><h3>Já estou em mentoria</h3><p>Para empresas que já são acompanhadas e querem mostrar sua evolução para parceiros, clientes e investidores.</p><ul><li>Fase atualizada a cada avanço</li><li>Página própria com a jornada</li><li>Visibilidade dentro da rede</li></ul><a class="btn" href="#inscricao" style="background:var(--ink);color:#fff">Entrar na vitrine</a></div>
+        <div class="mcard"><h3>Quero ser mentor</h3><p>Tem experiência para compartilhar? Cadastre-se como mentor e ajude negócios a subir de fase.</p><a class="btn solid" href="#mentores">Conhecer os mentores e me cadastrar</a></div>
+      </div>
+      <div class="mentor-grid" style="margin-top:16px;grid-template-columns:1fr">
+        <div class="mcard" style="flex-direction:row;flex-wrap:wrap;align-items:center;gap:16px"><h3 style="margin-right:auto">Veja quem está em mentoria</h3><button class="btn" type="button" data-goto="m-em" style="margin-top:0">Empresas em mentoria</button><button class="btn" type="button" data-goto="m-busca" style="margin-top:0">Quem busca mentoria</button></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="inscricao">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Quero colocar meu projeto</h2>
+        <p>Conte um pouco sobre o seu negócio. A equipe Ttrampolim entra em contato para a conversa inicial.</p>
+      </div>
+      <div class="inbox" id="insc-inbox" hidden style="margin-bottom:24px"></div>
+      <form class="apply" id="apply" novalidate>
+        <label class="f">Nome da empresa ou projeto<input id="f-nome" required placeholder="Ex.: Minha Startup"></label>
+        <label class="f">Seu nome<input id="f-resp" required placeholder="Quem responde pelo projeto"></label>
+        <label class="f">E-mail<input id="f-email" type="email" required placeholder="voce@empresa.com.br"></label>
+        <label class="f">Fase atual<select id="f-fase"></select></label>
+        <label class="f full">Mentoria<select id="f-ment"><option value="">Não preciso de mentoria agora</option><option value="busca">Quero receber mentoria</option><option value="em">Já estou em mentoria e quero entrar na vitrine</option></select></label>
+        <label class="f full">Por que quer entrar na Ttrampolim?<textarea id="f-why" rows="4" placeholder="O que você busca: investimento, sócios, parceiros, mentoria, clientes…"></textarea></label>
+        <div class="full" style="display:flex;gap:16px;align-items:center;flex-wrap:wrap">
+          <button class="btn solid" type="submit">Enviar inscrição</button>
+          <span class="note">A inscrição chega para a equipe Ttrampolim analisar.</span>
+        </div>
+        <div class="msg full" id="ok" role="status" hidden></div>
+      </form>
+    </div>
+  </section>
+</main>
+
+<main id="view-detail" hidden></main>
+
+<main id="view-mentores" hidden>
+  <div class="mhero"><div class="wrap">
+    <a class="back" href="#mentoria">← Voltar para a Ttrampolim</a>
+    <div><span class="eyebrow">Rede de mentores</span></div>
+    <h1>Mentores Ttrampolim</h1>
+    <p class="lead">Profissionais e empreendedores que dedicam parte do seu tempo para ajudar empresas, startups e projetos a subir de fase.</p>
+    <div class="btns"><a class="btn solid" href="#mentores" data-scroll="cadastro-mentor">Quero ser mentor</a><button class="btn" type="button" id="add-mentor" hidden>+ Adicionar mentor</button></div>
+  </div></div>
+  <section style="padding-top:24px"><div class="wrap">
+    <div class="mgrid" id="mentor-grid"></div>
+  </div></section>
+  <section id="cand-section" hidden><div class="wrap">
+    <div class="sec-head"><h2>Candidaturas de mentores</h2><p>Visível só para o master. Aprove para publicar o mentor na página ou exclua a candidatura.</p></div>
+    <div class="inbox" id="cand-inbox"></div>
+  </div></section>
+  <section id="cadastro-mentor"><div class="wrap">
+    <div class="sec-head"><h2>Cadastro de mentor</h2><p>Conte sua experiência e como quer ajudar. A equipe Ttrampolim analisa e entra em contato antes de publicar seu perfil.</p></div>
+    <form class="apply" id="mform" novalidate>
+      <label class="f">Nome completo<input id="m-nome" required></label>
+      <label class="f">E-mail<input id="m-email" type="email" required placeholder="voce@email.com"></label>
+      <label class="f">WhatsApp<input id="m-fone" placeholder="(11) 90000-0000"></label>
+      <label class="f">LinkedIn ou site<input id="m-link" placeholder="https://linkedin.com/in/..."></label>
+      <label class="f full">Áreas de atuação <small>Ex.: finanças, franquias, marketing digital, varejo, tecnologia</small><input id="m-area" required></label>
+      <label class="f full">Sua experiência<textarea id="m-bio" rows="4" placeholder="Resumo da sua trajetória e dos negócios em que já atuou"></textarea></label>
+      <div class="f full" style="display:flex;flex-direction:column;gap:8px;font-weight:800;font-size:14px">Fases em que prefere ajudar
+        <div class="checks" id="m-fases"></div></div>
+      <label class="f">Disponibilidade<select id="m-disp"><option>1 hora por semana</option><option>2 horas por mês</option><option>1 encontro por mês</option><option>Sob demanda</option></select></label>
+      <label class="f">Formato<select id="m-formato"><option>Online</option><option>Presencial em São Paulo</option><option>Online ou presencial</option></select></label>
+      <div class="full" style="display:flex;gap:16px;align-items:center;flex-wrap:wrap">
+        <button class="btn solid" type="submit" id="m-send">Enviar cadastro</button>
+        <span class="note">Seus dados de contato ficam visíveis só para a equipe Ttrampolim.</span>
+      </div>
+      <div class="msg full" id="m-ok" role="status" hidden></div>
+    </form>
+  </div></section>
+</main>
+
+<div class="modal" id="mmodal" hidden role="dialog" aria-modal="true" aria-labelledby="me-title">
+  <form class="sheet" id="meditor" novalidate></form>
+</div>
+
+<div class="modal" id="modal" hidden role="dialog" aria-modal="true" aria-labelledby="ed-title">
+  <form class="sheet" id="editor" novalidate></form>
+</div>
+<div class="toast" id="toast" hidden><div class="msg" id="toast-msg"></div></div>
+
+<footer>
+  <div class="wrap">
+    <span><b style="color:var(--ink)">Ttrampolim</b> · empresas, startups e projetos · São Paulo, SP</span>
+    <span>Uma iniciativa Grupo DOISM</span>
+  </div>
+</footer>
+
+<script>
+const PHASES = [
+  {id:"subida",  name:"Subida",  classic:"Ideia",     tone:"#E4E1EA", fg:"#16131F", text:"A ideia ganha forma: modelo de negócio, plano e primeiras conversas.", icon:"↗"},
+  {id:"impulso", name:"Impulso", classic:"Validação", tone:"#B9B2C6", fg:"#16131F", text:"Produto ou piloto no ar, primeiros clientes e prova de que o modelo funciona.", icon:"⤒"},
+  {id:"salto",   name:"Salto",   classic:"Tração",    tone:"#6E6780", fg:"#FFFFFF", text:"Operação rodando, receita recorrente e processos ganhando corpo.", icon:"⇡"},
+  {id:"voo",     name:"Voo",     classic:"Escala",    tone:"#16131F", fg:"#FFFFFF", text:"Expansão com franquias, novas unidades ou novos mercados.", icon:"✈"}
+];
+
+const MENTOR = [{id:"em",name:"Em mentoria"},{id:"busca",name:"Busca mentoria"}];
+function mpill(c){ return c.mentoria==="em"?`<span class="mpill em">Em mentoria</span>`:c.mentoria==="busca"?`<span class="mpill busca">Busca mentoria</span>`:""; }
+
+/* Conteúdo inicial. Depois de publicado, o conteúdo oficial fica no banco do site e é editado pelo painel do master. */
+const DEFAULTS = [
+  {id:"yoshizane-kobo", order:1, name:"yoshizane + Kobō", segment:"Arquitetura e estúdio criativo", phase:"salto",
+   color:"#FF3333", logos:[{src:"logos/yoshizane.png",bg:"#FFFFFF"},{src:"logos/kobo.png",bg:"#FF3131"}],
+   summary:"A yoshizane estuda e planeja espaços comerciais; a Kobō, seu estúdio criativo, cria os projetos e o design.",
+   why:"Ser o braço de arquitetura da rede: levar o espaço físico das empresas da Ttrampolim do estudo à obra.",
+   about:["yoshizane 吉眞: arquitetura orientada a produtividade, performance e escala. Estuda o negócio para que o espaço físico trabalhe a favor do faturamento.","Kobō 工房: o estúdio criativo da yoshizane. Em japonês, Kobō significa oficina, ateliê, o lugar onde as ideias ganham forma. Cuida da criação de projetos e design, com trabalhos em cafés, restaurantes, Airbnb, conveniências, lavanderias e contêineres."],
+   needs:["Marcas em expansão que precisam padronizar lojas","Startups que vão abrir o primeiro ponto físico","Parcerias com franqueadoras"],
+   facts:[{k:"yoshizane",v:"Estudo e estratégia"},{k:"Kobō",v:"Criação e design"},{k:"Local",v:"São Paulo, SP"}],
+   link:"https://yoshizane.arq.br", linkLabel:"Visitar yoshizane.arq.br"},
+  {id:"olavo", order:2, name:"Olavo Lavanderia Express", segment:"Lavanderia self-service", phase:"salto",
+   color:"#145DA0", logos:[{src:"logos/olavo.png",bg:"#145DA0"}],
+   summary:"Rede de lavanderias self-service com duas unidades em operação.",
+   why:"Estruturar o modelo para replicar novas unidades e preparar a expansão.",
+   about:["A Olavo Lavanderia Express é uma lavanderia self-service com duas unidades em operação.","A marca também produziu um e-book gratuito sobre como abrir uma lavanderia self-service no Brasil, usado para formar uma lista de interessados."],
+   needs:["Parceiros para novas unidades","Padronização para um futuro modelo de franquia","Canais de captação de interessados"],
+   facts:[{k:"Unidades",v:"2 em operação"},{k:"Modelo",v:"Self-service"},{k:"Conteúdo",v:"E-book gratuito"}],
+   link:"", linkLabel:"Visitar site"},
+  {id:"torra", order:3, name:"Torra+", segment:"Café · locação de máquinas e vending", phase:"salto",
+   color:"#BA3A1B", logos:[{src:"logos/torra.png",bg:"#FFFFFF"}],
+   summary:"Marca de café que aluga máquinas para empresas e eventos e opera vending machines.",
+   why:"Ampliar a base de clientes de locação e abrir novos pontos de vending.",
+   about:["A Torra+ é uma marca de café com máquinas próprias alugadas a clientes, com instalação e retirada no local.","Também opera vending machines, com um ponto ativo e outros planejados."],
+   needs:["Novos clientes corporativos e eventos","Pontos para vending machines","Parcerias de distribuição"],
+   facts:[{k:"Base",v:"Santo Amaro, São Paulo"},{k:"Frentes",v:"Locação, eventos e vending"},{k:"Instagram",v:"@torra.mais"}],
+   link:"https://www.instagram.com/torra.mais/", linkLabel:"Ver Instagram"},
+  {id:"boole", order:4, name:"boole coffeeshop", segment:"Microcafeteria · franquia", phase:"impulso",
+   color:"#1E1E1E", logos:[{src:"logos/boole.png",bg:"#FFFEFA"}],
+   summary:"Microcafeteria de porta e janela to go, em estilo japandi, pensada para virar franquia.",
+   why:"Captar R$ 200 mil em cotas para abrir o piloto e validar a marca.",
+   about:["O boole coffeeshop (pronuncia-se “bule”) é uma microcafeteria compacta: uma porta, uma janela de atendimento to go e um balcão com banquetas, em estilo japandi.","O plano é abrir um piloto (microloja ou quiosque), validar a marca e transformá-la em franquia, com um formato extra de coffee station com máquinas automáticas."],
+   needs:["Cotistas para a captação de R$ 200 mil (20 cotas de R$ 10 mil)","Ponto para o piloto","Fornecedores para a marca própria de café"],
+   facts:[{k:"Captação",v:"R$ 200 mil · 20 cotas"},{k:"Formatos",v:"Microloja, quiosque, coffee station"},{k:"Franquia",v:"Royalties 5% + 1% marketing"}],
+   link:"", linkLabel:"Visitar site"},
+  {id:"fluxxu", order:5, name:"fluxxu", segment:"Software financeiro para autoatendimento", phase:"impulso",
+   color:"#00BF63", logos:[{src:"logos/fluxxu.png",bg:"#00BF63"}],
+   summary:"Controle financeiro sem planilha para mercados autônomos, lavanderias, coffee stations e vending machines.",
+   why:"Levar o financeiro em ordem a mais negócios de autoatendimento e redes com várias unidades.",
+   about:["O fluxxu é um software de controle financeiro feito para negócios de autoatendimento, como mercados autônomos, lavanderias, estações de café e vending machines. Também atende lojas, restaurantes, franquias e empresas com várias unidades.","Registra receitas, despesas, boletos e notas, calcula taxas de cartão, fluxo de caixa e DRE, faz repasses a locais parceiros e conciliação bancária, e mostra o resultado por unidade ou por máquina. Slogan: “Seu financeiro em ordem. Sem planilha.”"],
+   needs:["Novos clientes de autoatendimento","Parcerias com fabricantes e operadores de máquinas","Redes e franquias com várias unidades"],
+   facts:[{k:"Preço",v:"R$ 50 por loja ativa/mês"},{k:"Teste",v:"30 dias grátis"},{k:"Visão",v:"Por unidade ou máquina"}],
+   link:"https://fluxxu.com.br", linkLabel:"Visitar fluxxu.com.br"},
+  {id:"movva", order:6, name:"MovvaCRM", segment:"CRM com IA para franquias", phase:"impulso",
+   color:"#3B2F8F", logos:[],
+   summary:"CRM com inteligência artificial para franqueadoras e redes de franquias.",
+   why:"Conquistar as primeiras redes de franquias e provar o ganho de eficiência na expansão.",
+   about:["O MovvaCRM é um CRM com inteligência artificial para franqueadoras e redes de franquias brasileiras, inclusive holdings com várias marcas. Slogan: “Menos gente. Mais rede.”","Prospecta e qualifica candidatos com IA 24 horas por dia, envia a Circular de Oferta de Franquia com rastreamento e controle do prazo legal, e acompanha cada unidade da rede, da implantação aos alertas de lojas em risco."],
+   needs:["Franqueadoras para os primeiros contratos","Parcerias com consultorias de franchising","Integrações com sistemas das redes"],
+   facts:[{k:"Público",v:"Franqueadoras e redes"},{k:"Planos",v:"R$ 297 a R$ 1.997 por unidade/mês"},{k:"Origem",v:"Grupo DOISM"}],
+   link:"https://movvacrm.com.br", linkLabel:"Visitar movvacrm.com.br"},
+  {id:"neo", order:7, name:"NEO Assessoria Esportiva", segment:"Gestão esportiva, saúde e bem-estar", phase:"salto",
+   color:"#E8590C", logos:[],
+   summary:"Cria e opera programas esportivos em condomínios, empresas, escolas e academias.",
+   why:"Levar o esporte para mais espaços e escalar a operação com a plataforma NEO Club.",
+   about:["A NEO Assessoria Esportiva cria e opera programas esportivos para os lugares onde as pessoas moram, trabalham, estudam ou treinam. Slogan: “Esporte mais perto das pessoas.”","Faz o diagnóstico do espaço e do público, planeja as atividades, implanta a operação, coordena os profissionais e acompanha presença, adesão e satisfação. O aplicativo NEO Club reúne agenda, inscrições, presença e indicadores para gestores."],
+   needs:["Novos condomínios, empresas e escolas","Profissionais de educação física parceiros","Patrocinadores para programas"],
+   facts:[{k:"Público",v:"Condomínios, empresas, escolas"},{k:"Plataforma",v:"App NEO Club"},{k:"Serviço",v:"Da implantação aos indicadores"}],
+   link:"https://neoesportiva.com.br", linkLabel:"Visitar neoesportiva.com.br"},
+  {"id": "hubhunter", "order": 8, "name": "HubHunter", "segment": "Prospecção outbound com IA", "phase": "impulso", "color": "#212529", "logos": [], "summary": "Plataforma que encontra, qualifica e aborda leads por e-mail, WhatsApp e LinkedIn e entrega a reunião agendada.", "why": "Levar a prospecção com IA para mais times comerciais e lançar a Iris, a IA de reuniões.", "about": ["O HubHunter é uma plataforma de prospecção outbound com IA: encontra empresas e decisores, enriquece os dados, conduz a abordagem por e-mail, WhatsApp e LinkedIn e entrega a reunião marcada para o time comercial fechar. Não é um CRM: cuida do topo e do meio do funil e alimenta o CRM que a empresa já usa.", "A Iris, sua IA de Meeting Intelligence, transforma a transcrição da reunião em proposta, roteiro e próximo passo, e devolve o aprendizado para a prospecção.", "Nasceu dentro do Grupo DOISM, da necessidade real de prospectar pontos e franqueados para o Minimart 24hrs, e depois foi aberto como produto."], "needs": ["Times comerciais B2B para demonstrações", "Redes de franquia recrutando franqueados", "Integrações com Pipedrive, HubSpot e RD Station"], "facts": [{"k": "Canais", "v": "E-mail, WhatsApp e LinkedIn"}, {"k": "Públicos", "v": "Empresas 100+, condomínios, PMEs, franqueados"}, {"k": "IA", "v": "Iris, Meeting Intelligence"}, {"k": "Origem", "v": "Grupo DOISM"}], "link": "https://hubhunter.com.br", "linkLabel": "Visitar hubhunter.com.br"},
+  {"id": "habla", "order": 9, "name": "habla", "segment": "Mídia indoor para negócios locais", "phase": "impulso", "color": "#F97520", "logos": [{"src": "logos/habla.png", "bg": "#FFFFFF"}], "summary": "Telas de mídia indoor em condomínios e comércios para pequenos negócios anunciarem perto de quem compra deles.", "why": "Ampliar a rede de telas com novos parceiros e levar anúncios acessíveis a mais negócios de bairro.", "about": ["A habla é uma empresa de mídia indoor (MOOH) com o propósito de democratizar o acesso à comunicação em telas para pequenos negócios, empreendedores e comércios locais. Lema: “Se for pra aparecer, que seja pra dizer algo.”", "Para parceiros, a habla instala em comodato uma TV ou totem smart com Android, sem custo de setup. O parceiro organiza a programação em três playlists (negócios locais, parceiro e habla), vende anúncios para o comércio da região e fica com 100% da receita, gerenciando tudo por aplicativo.", "Para anunciantes, o Plano Visibilidade Local exibe vídeos de 15 segundos em condomínios e minimercados de autoatendimento, uma vez por hora, 24 horas por dia, com exclusividade por nicho e 7 dias grátis para testar."], "needs": ["Condomínios e comércios para receber telas", "Parceiros para vender anúncios na sua região", "Anunciantes locais: clínicas, salões, pet shops, restaurantes"], "facts": [{"k": "Anúncio", "v": "R$ 150/mês ou R$ 750/semestre"}, {"k": "Exibições", "v": "720+ por mês"}, {"k": "Parceiro", "v": "Tela em comodato, 100% da receita"}, {"k": "Base", "v": "Santo Amaro, São Paulo"}], "link": "", "linkLabel": "Visitar site"}
+];
+
+let COMPANIES = DEFAULTS.map(c=>structuredClone(c));
+let dbHasData = false;
+let filter = "todas";
+let masterOn = false;
+let db = null, user = null;
+
+const $ = s => document.querySelector(s);
+const phaseOf = id => PHASES.find(p => p.id === id) || PHASES[0];
+const idx = id => Math.max(0, PHASES.findIndex(p => p.id === id));
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const safeColor = c => /^#[0-9a-fA-F]{6}$/.test(c||"") ? c : "#16131F";
+const safeUrl = u => /^https?:\/\//i.test(u||"") ? u : "";
+const safeImg = u => (/^logos\/[a-z0-9-]+\.png$/.test(u||"") || /^data:image\/(png|webp|jpeg);base64,/.test(u||"")) ? u : "";
+function textOn(hex){
+  const h = safeColor(hex).slice(1), r=parseInt(h.slice(0,2),16), g=parseInt(h.slice(2,4),16), b=parseInt(h.slice(4,6),16);
+  return (0.299*r+0.587*g+0.114*b) > 165 ? "#16131F" : "#FFFFFF";
+}
+function sorted(){ return [...COMPANIES].sort((a,b)=>(a.order??99)-(b.order??99)); }
+
+function initials(n){ return (n||"?").replace(/[^\p{L}\p{N} ]/gu," ").trim().split(/\s+/).slice(0,2).map(w=>w[0]).join("").toUpperCase() || "?"; }
+function circlesHTML(c, big){
+  const logos = (c.logos||[]).filter(l=>safeImg(l.src));
+  const inner = logos.length
+    ? logos.map(l=>`<span class="circ" style="background:${safeColor(l.bg||"#FFFFFF")}"><img src="${l.src}" alt="${esc(c.name)}" loading="lazy"></span>`).join("")
+    : `<span class="circ" style="background:${safeColor(c.color)};color:${textOn(c.color)}"><span class="ini">${esc(initials(c.name))}</span></span>`;
+  return `<div class="circles${big?" big":""}">${inner}</div>`;
+}
+function pill(p){ return `<span class="pill"><i style="background:${p.tone}"></i>${p.name}</span>`; }
+function track(c){
+  const n = idx(c.phase);
+  return `<div class="track" aria-label="Fase ${n+1} de 4">${PHASES.map((p,i)=>`<i style="${i<n?"background:var(--ink)":i===n?`background:${safeColor(c.color)}`:""}"></i>`).join("")}</div>`;
+}
+
+function renderStats(){
+  $("#stats").innerHTML = `
+    <div class="stat"><b>${COMPANIES.length}</b><span>empresas e projetos</span></div>
+        <div class="stat"><b>${COMPANIES.filter(c=>c.mentoria==="em").length}</b><span>em mentoria</span></div>
+    <div class="stat"><b>${COMPANIES.filter(c=>c.mentoria==="busca").length}</b><span>buscando mentoria</span></div>`;
+}
+function renderPhases(){
+  const total = COMPANIES.length || 1;
+  $("#phases").innerHTML = PHASES.map((p,i)=>{
+    const n = COMPANIES.filter(c=>c.phase===p.id).length;
+    return `<div class="phase">
+      <div class="n"><span>Fase ${i+1}</span><span class="dot" style="background:${p.tone};color:${p.fg}">${p.icon}</span></div>
+      <h3>${p.name}</h3><div class="sub">${p.classic}</div><p>${p.text}</p>
+      <div class="count">${n} ${n===1?"empresa":"empresas"}</div>
+      <div class="bar"><i style="width:${n/total*100}%"></i></div></div>`;
+  }).join("");
+}
+function renderFilters(){
+  const chip = o=>`<button class="chip" type="button" data-f="${o.id}" aria-pressed="${filter===o.id}">${o.name}</button>`;
+  $("#filters").innerHTML = [{id:"todas",name:"Todas"}].concat(PHASES).map(chip).join("") + `<span class="sep" aria-hidden="true"></span>` + MENTOR.map(m=>chip({id:"m-"+m.id,name:m.name})).join("");
+}
+function renderGrid(){
+  const list = sorted().filter(c=>filter==="todas"||c.phase===filter||(filter.startsWith("m-")&&c.mentoria===filter.slice(2)));
+  const cards = list.map(c=>`<article class="co" data-id="${esc(c.id)}" style="--c:${safeColor(c.color)}">
+      ${masterOn?`<button class="edit-btn" type="button" data-edit="${esc(c.id)}">Editar</button>`:""}
+      <div class="co-body">
+        <div class="co-head">${circlesHTML(c)}<div><h3>${esc(c.name)}</h3><div class="seg">${esc(c.segment)}</div></div></div>
+        <p>${esc(c.summary)}</p>
+        <div class="why"><b>Por que está aqui</b>${esc(c.why)}</div>
+        ${track(c)}
+        <div class="co-foot"><span class="pills">${pill(phaseOf(c.phase))}${mpill(c)}</span><a class="more" href="#${esc(c.id)}">Ver empresa →</a></div>
+      </div></article>`);
+  if(!list.length) cards.push(`<p class="empty">Nenhuma empresa nesta categoria ainda.</p>`);
+  cards.push(masterOn
+    ? `<article class="co open"><h3>Nova empresa</h3><p>Adicione uma empresa, startup ou projeto à vitrine.</p><button class="btn" type="button" data-new="1">+ Adicionar empresa</button></article>`
+    : `<article class="co open"><h3>Seu projeto aqui</h3><p>Tem uma ideia, um piloto ou um negócio pronto para crescer? Há espaço para você na Ttrampolim.</p><a class="btn" href="#inscricao">Inscrever projeto</a></article>`);
+  $("#grid").innerHTML = cards.join("");
+}
+function renderHome(){ renderStats(); renderPhases(); renderFilters(); renderGrid(); }
+
+function renderDetail(c){
+  const p = phaseOf(c.phase), n = idx(c.phase), col = safeColor(c.color), url = safeUrl(c.link);
+  const linkBtn = url
+    ? `<a class="btn site-btn" href="${esc(url)}" target="_blank" rel="noopener">${esc(c.linkLabel||"Visitar site")} ↗</a>`
+    : `<span class="btn" aria-disabled="true" style="opacity:.5;cursor:default">Site em breve</span>`;
+  $("#view-detail").innerHTML = `<div class="detail" style="--c:${col};--ct:${textOn(col)}"><div class="wrap">
+    <a class="back" href="#empresas">← Todas as empresas</a>
+    <div class="d-head"><div class="d-id">${circlesHTML(c,true)}<div><span class="pills">${pill(p)}${mpill(c)}</span><h1>${esc(c.name)}</h1><div class="seg">${esc(c.segment)}</div></div></div>
+      <div class="btns">${masterOn?`<button class="btn" type="button" data-edit="${esc(c.id)}">Editar</button>`:""}${linkBtn}</div></div>
+    <div class="d-grid">
+      <div>
+        <div class="d-block"><h2>O que faz</h2>${(c.about||[]).map(t=>`<p>${esc(t)}</p>`).join("")}</div>
+        <div class="d-block"><h2>Por que está na Ttrampolim</h2><p>${esc(c.why)}</p></div>
+        <div class="d-block"><h2>O que busca agora</h2><ul>${(c.needs||[]).map(t=>`<li>${esc(t)}</li>`).join("")}</ul></div>
+      </div>
+      <aside class="d-side">
+        <div class="box"><h3>Jornada na Ttrampolim</h3><div class="journey">
+          ${PHASES.map((q,i)=>`<div class="j ${i<n?"past":""}"><span class="jd" style="${i<n?"background:var(--ink);color:#fff":i===n?`background:${col};border-color:${col};color:${textOn(col)}`:""}">${i<n?"✓":i+1}</span>${q.name} <span style="color:var(--muted);font-weight:500">· ${q.classic}</span>${i===n?`<span style="margin-left:auto;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.06em">agora</span>`:""}</div>`).join("")}
+        </div></div>
+        ${c.mentoria?`<div class="box" style="${c.mentoria==="em"?"background:var(--accent)":""}"><h3>Mentoria</h3><p style="margin:0 0 6px;font-weight:800">${c.mentoria==="em"?"Em mentoria na Ttrampolim":"Busca mentoria"}</p>${c.mentoriaNota?`<p style="margin:0">${esc(c.mentoriaNota)}</p>`:""}</div>`:""}
+        <div class="box"><h3>Em resumo</h3><dl class="facts">${(c.facts||[]).map(f=>`<dt>${esc(f.k)}</dt><dd>${esc(f.v)}</dd>`).join("")}</dl></div>
+        ${url?`<a class="btn site-btn" href="${esc(url)}" target="_blank" rel="noopener">${esc(c.linkLabel||"Visitar site")} ↗</a>`:""}
+      </aside>
+    </div></div></div>`;
+}
+
+function route(){
+  const h = decodeURIComponent(location.hash.slice(1));
+  const c = COMPANIES.find(x=>x.id===h);
+  $("#view-mentores").hidden = true;
+  if(h==="mentores"){
+    renderMentors();
+    $("#view-home").hidden = true; $("#view-detail").hidden = true; $("#view-mentores").hidden = false;
+    window.scrollTo(0,0);
+  } else if(c){
+    renderDetail(c);
+    $("#view-home").hidden = true; $("#view-detail").hidden = false;
+    window.scrollTo(0,0);
+  } else {
+    $("#view-home").hidden = false; $("#view-detail").hidden = true;
+    const t = h && document.getElementById(h);
+    if(t) t.scrollIntoView(); else window.scrollTo(0,0);
+  }
+}
+
+/* cliques */
+document.addEventListener("click", e=>{
+  const ed = e.target.closest("[data-edit]");
+  if(ed){ e.preventDefault(); e.stopPropagation(); openEditor(ed.dataset.edit); return; }
+  if(e.target.closest("[data-new]")){ openEditor(null); return; }
+  const sc = e.target.closest("[data-scroll]");
+  if(sc){ e.preventDefault(); if(location.hash!=="#mentores"){ location.hash="mentores"; } setTimeout(()=>document.getElementById(sc.dataset.scroll).scrollIntoView({behavior:"smooth"}),60); return; }
+  const me = e.target.closest("[data-medit]");
+  if(me){ openMentorEditor(me.dataset.medit); return; }
+  const ca = e.target.closest("[data-approve]");
+  if(ca){ const cd = CANDS.find(x=>x.id===ca.dataset.approve); if(cd) openMentorEditor(null, cd); return; }
+  const cdel = e.target.closest("[data-cdel]");
+  if(cdel){ delDoc(cdel.dataset.cdel, cdel); return; }
+  const icr = e.target.closest("[data-icreate]");
+  if(icr){ const it = INSCS.find(x=>x.id===icr.dataset.icreate); if(it) openEditor(null, it); return; }
+  const go = e.target.closest("[data-goto]");
+  if(go){ filter = go.dataset.goto; renderFilters(); renderGrid(); document.getElementById("empresas").scrollIntoView({behavior:"smooth"}); return; }
+  const chip = e.target.closest(".chip[data-f]");
+  if(chip){ filter = chip.dataset.f; renderFilters(); renderGrid(); return; }
+  const card = e.target.closest(".co[data-id]");
+  if(card && !e.target.closest("a")){ location.hash = card.dataset.id; }
+});
+
+function toast(text, err){
+  $("#toast-msg").textContent = text; $("#toast-msg").className = "msg" + (err?" err":"");
+  $("#toast").hidden = false; clearTimeout(toast.t); toast.t = setTimeout(()=>$("#toast").hidden = true, 4200);
+}
+
+/* master */
+function setMaster(on){
+  masterOn = on;
+  $("#master-bar").hidden = !on;
+  $("#master-btn").classList.toggle("on", on);
+  $("#master-btn").textContent = on ? "Master" : "Entrar";
+  $("#add-mentor").hidden = !on;
+  $("#cand-section").hidden = !on;
+  $("#insc-inbox").hidden = !on;
+  if(on) watchInbox();
+  renderGrid(); route(); renderInbox();
+}
+$("#master-btn").addEventListener("click", async ()=>{
+  if(masterOn){ setMaster(false); return; }
+  if(!user){ toast("Para editar, abra esta página logado no claude.ai com a conta do master.", true); return; }
+  let ok = false;
+  try { ok = (await user.isOwner()) || (await user.canEdit()); } catch(_) { ok = false; }
+  if(!ok){ toast("Esta conta não tem acesso de master. Só o dono do site pode editar o conteúdo.", true); return; }
+  if(!db){ toast("O banco do site não está disponível agora. Tente recarregar a página.", true); return; }
+  setMaster(true);
+  toast("Modo master ativado.");
+});
+$("#exit-master").addEventListener("click", ()=>setMaster(false));
+$("#add-co").addEventListener("click", ()=>openEditor(null));
+
+let editing = null, draftLogos = [];
+function openEditor(id, pre){
+  if(!masterOn) return;
+  const base = id ? COMPANIES.find(c=>c.id===id) : null;
+  const c = base ? structuredClone(base) : {id:"", order:(Math.max(0,...COMPANIES.map(x=>x.order||0))+1), name:"", segment:"", phase:"subida", color:"#F7E135", logos:[], summary:"", why:"", about:[], needs:[], facts:[], link:"", linkLabel:"Visitar site", mentoria:"", mentoriaNota:""};
+  if(pre){ c.name = pre.nome||""; c.phase = PHASES.some(p=>p.id===pre.fase)?pre.fase:"subida"; c.why = pre.why||""; c.mentoria = MENTOR.some(m=>m.id===pre.mentoria)?pre.mentoria:""; c.fromInsc = pre.id; }
+  editing = {isNew:!base, c};
+  draftLogos = (c.logos||[]).map(l=>({...l}));
+  $("#editor").innerHTML = `
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:12px"><h2 id="ed-title">${base?"Editar empresa":"Nova empresa"}</h2><button type="button" class="btn sm" id="ed-close">Fechar</button></div>
+    <div class="row">
+      <label class="f">Nome<input id="e-name" value="${esc(c.name)}" required></label>
+      <label class="f">Segmento<input id="e-segment" value="${esc(c.segment)}"></label>
+    </div>
+    <div class="row">
+      <label class="f">Fase<select id="e-phase">${PHASES.map(p=>`<option value="${p.id}" ${p.id===c.phase?"selected":""}>${p.name} · ${p.classic}</option>`).join("")}</select></label>
+      <label class="f">Cor da marca<input id="e-color" type="color" value="${safeColor(c.color)}" style="height:46px;padding:4px"></label>
+    </div>
+    <div class="f" style="display:flex;flex-direction:column;gap:8px;font-weight:800;font-size:14px">Logos <small style="font-weight:500;color:var(--muted)">Até 2 imagens (ex.: yoshizane + Kobō). PNG ou JPG; a imagem é reduzida automaticamente.</small>
+      <div class="logo-prev" id="e-logos"></div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+        <label class="btn sm" for="e-file" style="cursor:pointer">Adicionar logo</label><input id="e-file" type="file" accept="image/png,image/jpeg,image/webp" hidden>
+        <label style="display:flex;gap:8px;align-items:center;font-weight:600;font-size:14px">Fundo do logo <input id="e-lbg" type="color" value="#ffffff"></label>
+      </div>
+    </div>
+    <label class="f">Resumo do card<textarea id="e-summary" rows="2">${esc(c.summary)}</textarea></label>
+    <label class="f">Por que está aqui<textarea id="e-why" rows="2">${esc(c.why)}</textarea></label>
+    <label class="f">O que faz <small>Um parágrafo por bloco; separe com uma linha em branco.</small><textarea id="e-about" rows="6">${esc((c.about||[]).join("\n\n"))}</textarea></label>
+    <label class="f">O que busca agora <small>Um item por linha.</small><textarea id="e-needs" rows="3">${esc((c.needs||[]).join("\n"))}</textarea></label>
+    <label class="f">Em resumo <small>Um por linha, no formato Rótulo: valor.</small><textarea id="e-facts" rows="3">${esc((c.facts||[]).map(f=>f.k+": "+f.v).join("\n"))}</textarea></label>
+    <div class="row">
+      <label class="f">Link do site<input id="e-link" value="${esc(c.link)}" placeholder="https://..."></label>
+      <label class="f">Texto do botão<input id="e-linklabel" value="${esc(c.linkLabel)}"></label>
+    </div>
+    <div class="row">
+      <label class="f">Mentoria<select id="e-mentoria"><option value="" ${!c.mentoria?"selected":""}>Sem mentoria</option>${MENTOR.map(m=>`<option value="${m.id}" ${c.mentoria===m.id?"selected":""}>${m.name}</option>`).join("")}</select></label>
+      <label class="f">Detalhe da mentoria <small>Ex.: área, mentor ou período.</small><input id="e-mnota" value="${esc(c.mentoriaNota)}" placeholder="Ex.: gestão financeira e expansão"></label>
+    </div>
+    <label class="f">Ordem na vitrine<input id="e-order" type="number" min="1" value="${esc(c.order)}"></label>
+    <div class="msg err" id="e-err" hidden></div>
+    <div class="sheet-actions">
+      <button class="btn solid" type="submit" id="e-save">Salvar</button>
+      <button class="btn" type="button" id="ed-cancel">Cancelar</button>
+      ${base?`<button class="btn danger" type="button" id="e-del" style="margin-left:auto">Excluir empresa</button>`:""}
+    </div>`;
+  renderLogoPrev();
+  $("#modal").hidden = false;
+  $("#e-name").focus();
+  $("#ed-close").onclick = $("#ed-cancel").onclick = closeEditor;
+  $("#e-file").onchange = async ev=>{
+    const f = ev.target.files[0]; ev.target.value = "";
+    if(!f) return;
+    if(draftLogos.length>=2){ showErr("Remova um logo antes de adicionar outro (máximo 2)."); return; }
+    try { draftLogos.push({src: await shrink(f), bg: $("#e-lbg").value}); renderLogoPrev(); }
+    catch(_) { showErr("Não foi possível ler esta imagem. Tente um PNG ou JPG."); }
+  };
+  if(base) $("#e-del").onclick = ()=>confirmDelete(base);
+}
+function renderLogoPrev(){
+  $("#e-logos").innerHTML = draftLogos.length
+    ? draftLogos.map((l,i)=>`<span style="display:inline-flex;gap:6px;align-items:center"><img src="${safeImg(l.src)}" alt="Logo ${i+1}" style="background:${safeColor(l.bg)}"><button type="button" class="btn sm" data-rm="${i}">Remover</button></span>`).join("")
+    : `<span class="note">Sem logo: o card mostra o nome sobre a cor da marca.</span>`;
+  $("#e-logos").querySelectorAll("[data-rm]").forEach(b=>b.onclick=()=>{draftLogos.splice(+b.dataset.rm,1);renderLogoPrev();});
+}
+function shrink(file){
+  return new Promise((res,rej)=>{
+    const img = new Image(), r = new FileReader();
+    r.onload = ()=>{ img.src = r.result; };
+    r.onerror = rej;
+    img.onload = ()=>{
+      const s = Math.min(1, 520/Math.max(img.width,img.height));
+      const cv = document.createElement("canvas"); cv.width = Math.round(img.width*s); cv.height = Math.round(img.height*s);
+      cv.getContext("2d").drawImage(img,0,0,cv.width,cv.height);
+      let out = cv.toDataURL("image/webp",0.9);
+      if(!out.startsWith("data:image/webp")) out = cv.toDataURL("image/png");
+      res(out);
+    };
+    img.onerror = rej;
+    r.readAsDataURL(file);
+  });
+}
+function showErr(t){ const e=$("#e-err"); e.textContent=t; e.hidden=false; }
+function closeEditor(){ $("#modal").hidden = true; editing = null; }
+function slugify(s){ return (s||"").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"").slice(0,40) || "empresa"; }
+
+async function seedIfEmpty(){
+  if(dbHasData) return;
+  for(const c of DEFAULTS){ await db.doc("companies/"+c.id).set(structuredClone(c)); }
+  dbHasData = true;
+}
+$("#editor").addEventListener("submit", async e=>{
+  e.preventDefault();
+  if(!editing) return;
+  const name = $("#e-name").value.trim();
+  if(!name){ showErr("Dê um nome à empresa."); return; }
+  const link = $("#e-link").value.trim();
+  if(link && !safeUrl(link)){ showErr("O link precisa começar com https://"); return; }
+  const c = editing.c;
+  let id = c.id;
+  if(editing.isNew){ id = slugify(name); let k=2; while(COMPANIES.some(x=>x.id===id)) id = slugify(name)+"-"+(k++); }
+  const obj = {
+    id, name,
+    order: Number($("#e-order").value)||99,
+    segment: $("#e-segment").value.trim(),
+    phase: $("#e-phase").value,
+    color: $("#e-color").value,
+    logos: draftLogos.map(l=>({src:l.src,bg:safeColor(l.bg)})),
+    summary: $("#e-summary").value.trim(),
+    why: $("#e-why").value.trim(),
+    about: $("#e-about").value.split(/\n\s*\n/).map(s=>s.trim()).filter(Boolean),
+    needs: $("#e-needs").value.split("\n").map(s=>s.trim()).filter(Boolean),
+    facts: $("#e-facts").value.split("\n").map(s=>s.trim()).filter(Boolean).map(l=>{const i=l.indexOf(":");return i>0?{k:l.slice(0,i).trim(),v:l.slice(i+1).trim()}:{k:l,v:""};}),
+    link, linkLabel: $("#e-linklabel").value.trim() || "Visitar site",
+    mentoria: $("#e-mentoria").value, mentoriaNota: $("#e-mnota").value.trim()
+  };
+  $("#e-save").disabled = true; $("#e-save").textContent = "Salvando…";
+  try{
+    await seedIfEmpty();
+    await db.doc("companies/"+id).set(obj);
+    if(c.fromInsc){ try{ await db.doc("inscricoes/"+c.fromInsc).delete(); }catch(_){} }
+    closeEditor();
+    toast("Alterações salvas e publicadas na vitrine.");
+  }catch(err){
+    $("#e-save").disabled = false; $("#e-save").textContent = "Salvar";
+    showErr(err && err.code==="invalid_argument" ? "Esta conta não pode salvar alterações, ou a imagem é grande demais." : "Não foi possível salvar agora. Tente de novo em instantes.");
+  }
+});
+function confirmDelete(c){
+  const bar = document.createElement("div");
+  bar.className = "msg err";
+  bar.innerHTML = `Excluir <b>${esc(c.name)}</b> da vitrine? <button type="button" class="btn sm" style="background:#fff;color:#B42318;border-color:#fff;margin-left:8px" id="del-yes">Sim, excluir</button> <button type="button" class="btn sm" style="color:#fff;border-color:#fff" id="del-no">Cancelar</button>`;
+  $("#e-del").replaceWith(bar);
+  $("#del-no").onclick = ()=>openEditor(c.id);
+  $("#del-yes").onclick = async ()=>{
+    try{ await seedIfEmpty(); await db.doc("companies/"+c.id).delete(); closeEditor(); if(location.hash.slice(1)===c.id) location.hash="empresas"; toast("Empresa excluída."); }
+    catch(_){ toast("Não foi possível excluir agora.", true); }
+  };
+}
+$("#modal").addEventListener("click", e=>{ if(e.target.id==="modal") closeEditor(); });
+document.addEventListener("keydown", e=>{ if(e.key==="Escape" && !$("#modal").hidden) closeEditor(); });
+
+/* inscrição */
+$("#f-fase").innerHTML = PHASES.map(p=>`<option value="${p.id}">${p.name} · ${p.classic}</option>`).join("");
+$("#apply").addEventListener("submit", async e=>{
+  e.preventDefault();
+  const nome = $("#f-nome").value.trim(), email = $("#f-email").value.trim(), ok = $("#ok");
+  ok.hidden = false;
+  if(!nome || !email.includes("@")){ ok.className="msg err full"; ok.textContent="Preencha o nome e um e-mail válido para continuar."; return; }
+  const data = {nome, resp:$("#f-resp").value.trim(), email, fase:$("#f-fase").value, mentoria:$("#f-ment").value, why:$("#f-why").value.trim(), quando:new Date().toISOString()};
+  const r = await sendOwn("inscricoes", data);
+  if(r===true){ ok.className="msg full"; ok.textContent=`Inscrição de ${nome} enviada. A equipe Ttrampolim vai entrar em contato pelo e-mail informado.`; e.target.reset(); }
+  else { ok.className="msg err full"; ok.innerHTML = `Não foi possível enviar por aqui${r==="signin"?" (é preciso estar logado no claude.ai)":""}. <button type="button" class="btn sm" style="background:#fff;color:#B42318;border-color:#fff;margin-left:6px" id="copy-insc">Copiar dados</button> e envie para a equipe Ttrampolim.`; $("#copy-insc").onclick=()=>copyText(Object.entries(data).map(([k,v])=>k+": "+v).join("\n")); }
+});
+
+/* mentores */
+let MENTORS = [], CANDS = [], INSCS = [], inboxOn = false, draftPhoto = "";
+$("#m-fases").innerHTML = PHASES.map(p=>`<label><input type="checkbox" value="${p.id}"> ${p.name}</label>`).join("");
+function normMentor(d){
+  return {id:String(d.id||""), order:Number(d.order)||99, nome:String(d.nome||""), area:String(d.area||""), bio:String(d.bio||""),
+    link:safeUrl(d.link), foto:safeImg(d.foto), fases:Array.isArray(d.fases)?d.fases.filter(f=>PHASES.some(p=>p.id===f)):[],
+    formato:String(d.formato||""), disp:String(d.disp||"")};
+}
+function mentorCircle(m){
+  return m.foto ? `<span class="circ photo"><img src="${m.foto}" alt="${esc(m.nome)}"></span>` : `<span class="circ"><span class="ini">${esc(initials(m.nome))}</span></span>`;
+}
+function renderMentors(){
+  const list = [...MENTORS].sort((a,b)=>a.order-b.order);
+  const cards = list.map(m=>`<article class="mentor">
+      ${masterOn?`<button class="edit-btn" type="button" data-medit="${esc(m.id)}">Editar</button>`:""}
+      <div class="co-head"><div class="circles">${mentorCircle(m)}</div><div><h3>${esc(m.nome)}</h3><div class="seg">${esc(m.formato)}</div></div></div>
+      <div class="tags">${m.area.split(",").map(t=>t.trim()).filter(Boolean).map(t=>`<span class="tag">${esc(t)}</span>`).join("")}</div>
+      <p>${esc(m.bio)}</p>
+      ${m.fases.length?`<p class="note">Ajuda nas fases: <b style="color:var(--ink)">${m.fases.map(f=>phaseOf(f).name).join(", ")}</b></p>`:""}
+      ${m.link?`<a class="more" style="--c:var(--accent);align-self:flex-start" href="${esc(m.link)}" target="_blank" rel="noopener">Ver perfil ↗</a>`:""}
+    </article>`);
+  if(!list.length) cards.push(`<article class="co open" style="grid-column:1/-1;align-items:flex-start"><h3>Os primeiros mentores estão chegando</h3><p>A rede de mentores Ttrampolim está sendo formada. Quer ser um dos primeiros?</p><a class="btn solid" href="#mentores" data-scroll="cadastro-mentor">Quero ser mentor</a></article>`);
+  $("#mentor-grid").innerHTML = cards.join("");
+}
+function renderInbox(){
+  if(!masterOn) return;
+  $("#cand-inbox").innerHTML = CANDS.length ? CANDS.map(c=>`<div class="item"><div>
+      <b>${esc(c.nome)}</b> · ${esc(c.area)}
+      <p>${esc(c.email)}${c.fone?" · "+esc(c.fone):""}${c.link?` · <a href="${esc(safeUrl(c.link))}" target="_blank" rel="noopener">perfil</a>`:""}</p>
+      <p>${esc(c.bio)}</p>
+      <p class="note">${esc(c.disp)} · ${esc(c.formato)}${(c.fases||[]).length?" · fases: "+c.fases.map(f=>phaseOf(f).name).join(", "):""}</p>
+    </div><div class="acts"><button class="btn sm solid" type="button" data-approve="${esc(c.id)}">Aprovar</button><button class="btn sm danger" type="button" data-cdel="candidaturas/${esc(c.id)}">Excluir</button></div></div>`).join("")
+    : `<p class="note">Nenhuma candidatura nova.</p>`;
+  $("#insc-inbox").innerHTML = `<h3 style="font-size:22px">Inscrições recebidas</h3>` + (INSCS.length ? INSCS.map(i=>`<div class="item"><div>
+      <b>${esc(i.nome)}</b> · ${esc(phaseOf(i.fase).name)}${i.mentoria==="busca"?" · quer mentoria":i.mentoria==="em"?" · em mentoria":""}
+      <p>${esc(i.resp)} · ${esc(i.email)}</p><p>${esc(i.why)}</p>
+    </div><div class="acts"><button class="btn sm solid" type="button" data-icreate="${esc(i.id)}">Criar card</button><button class="btn sm danger" type="button" data-cdel="inscricoes/${esc(i.id)}">Excluir</button></div></div>`).join("") : `<p class="note">Nenhuma inscrição nova.</p>`);
+}
+function watchInbox(){
+  if(inboxOn || !db) return; inboxOn = true;
+  db.collection("candidaturas").onSnapshot(s=>{ CANDS = s.docs.filter(d=>d.exists).map(d=>({...d.data(), id:d.id})); renderInbox(); }, ()=>{});
+  db.collection("inscricoes").onSnapshot(s=>{ INSCS = s.docs.filter(d=>d.exists).map(d=>({...d.data(), id:d.id})); renderInbox(); }, ()=>{});
+}
+async function delDoc(path, btn){
+  if(btn.dataset.sure!=="1"){ btn.dataset.sure="1"; btn.textContent="Confirmar exclusão"; return; }
+  try{ await db.doc(path).delete(); toast("Excluído."); }catch(_){ toast("Não foi possível excluir agora.", true); }
+}
+async function sendOwn(col, data){
+  if(!db || !user) return "signin";
+  let uid = null; try{ uid = await user.id(); }catch(_){}
+  if(!uid) return "signin";
+  try{ await db.doc(col+"/"+uid).set(data); return true; }catch(_){ return false; }
+}
+function copyText(t){ try{ navigator.clipboard.writeText(t).then(()=>toast("Dados copiados."),()=>toast("Não foi possível copiar.", true)); }catch(_){ toast("Não foi possível copiar.", true); } }
+
+$("#mform").addEventListener("submit", async e=>{
+  e.preventDefault();
+  const ok = $("#m-ok"); ok.hidden = false;
+  const data = {nome:$("#m-nome").value.trim(), email:$("#m-email").value.trim(), fone:$("#m-fone").value.trim(), link:$("#m-link").value.trim(),
+    area:$("#m-area").value.trim(), bio:$("#m-bio").value.trim(), fases:[...document.querySelectorAll("#m-fases input:checked")].map(i=>i.value),
+    disp:$("#m-disp").value, formato:$("#m-formato").value, quando:new Date().toISOString()};
+  if(!data.nome || !data.email.includes("@") || !data.area){ ok.className="msg err full"; ok.textContent="Preencha nome, um e-mail válido e suas áreas de atuação."; return; }
+  if(data.link && !safeUrl(data.link)) data.link = "https://"+data.link.replace(/^\/+/,"");
+  $("#m-send").disabled = true;
+  const r = await sendOwn("candidaturas", data);
+  $("#m-send").disabled = false;
+  if(r===true){ ok.className="msg full"; ok.textContent=`Obrigado, ${data.nome.split(" ")[0]}! Seu cadastro foi enviado. A equipe Ttrampolim vai analisar e entrar em contato.`; e.target.reset(); }
+  else { ok.className="msg err full"; ok.innerHTML=`Não foi possível enviar por aqui${r==="signin"?" (é preciso estar logado no claude.ai)":""}. <button type="button" class="btn sm" style="background:#fff;color:#B42318;border-color:#fff;margin-left:6px" id="copy-m">Copiar dados</button> e envie para a equipe Ttrampolim.`; $("#copy-m").onclick=()=>copyText(Object.entries(data).map(([k,v])=>k+": "+(Array.isArray(v)?v.join(", "):v)).join("\n")); }
+});
+
+let mEditing = null;
+function openMentorEditor(id, cand){
+  if(!masterOn) return;
+  const base = id ? MENTORS.find(m=>m.id===id) : null;
+  const m = base ? {...base} : {id:"", order:MENTORS.length+1, nome:cand?.nome||"", area:cand?.area||"", bio:cand?.bio||"", link:safeUrl(cand?.link)||"", foto:"", fases:cand?.fases||[], formato:cand?.formato||"", disp:cand?.disp||""};
+  mEditing = {base, m, cand}; draftPhoto = m.foto||"";
+  $("#meditor").innerHTML = `
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:12px"><h2 id="me-title">${base?"Editar mentor":cand?"Aprovar mentor":"Novo mentor"}</h2><button type="button" class="btn sm" id="me-close">Fechar</button></div>
+    <div class="row"><label class="f">Nome<input id="me-nome" value="${esc(m.nome)}"></label><label class="f">Formato<input id="me-formato" value="${esc(m.formato)}" placeholder="Online, presencial…"></label></div>
+    <label class="f">Áreas <small>Separe por vírgula.</small><input id="me-area" value="${esc(m.area)}"></label>
+    <label class="f">Sobre o mentor<textarea id="me-bio" rows="4">${esc(m.bio)}</textarea></label>
+    <label class="f">LinkedIn ou site<input id="me-link" value="${esc(m.link)}" placeholder="https://"></label>
+    <div class="f" style="display:flex;flex-direction:column;gap:8px;font-weight:800;font-size:14px">Fases em que ajuda<div class="checks">${PHASES.map(p=>`<label><input type="checkbox" value="${p.id}" ${m.fases.includes(p.id)?"checked":""}> ${p.name}</label>`).join("")}</div></div>
+    <div class="f" style="display:flex;flex-direction:column;gap:8px;font-weight:800;font-size:14px">Foto <small style="font-weight:500;color:var(--muted)">Opcional. Sem foto, aparecem as iniciais.</small>
+      <div class="logo-prev" id="me-prev"></div>
+      <div style="display:flex;gap:10px"><label class="btn sm" for="me-file" style="cursor:pointer">Escolher foto</label><input id="me-file" type="file" accept="image/png,image/jpeg,image/webp" hidden><button type="button" class="btn sm" id="me-nofoto">Remover foto</button></div></div>
+    <label class="f">Ordem<input id="me-order" type="number" min="1" value="${esc(m.order)}"></label>
+    <div class="msg err" id="me-err" hidden></div>
+    <div class="sheet-actions"><button class="btn solid" type="submit" id="me-save">${cand?"Aprovar e publicar":"Salvar"}</button><button class="btn" type="button" id="me-cancel">Cancelar</button>
+    ${base?`<button class="btn danger" type="button" id="me-del" style="margin-left:auto">Excluir mentor</button>`:""}</div>`;
+  const prev = ()=>{ $("#me-prev").innerHTML = draftPhoto?`<img src="${safeImg(draftPhoto)}" alt="Foto" style="border-radius:50%;width:56px;height:56px;object-fit:cover;padding:0">`:`<span class="note">Sem foto</span>`; };
+  prev();
+  $("#mmodal").hidden = false;
+  $("#me-close").onclick = $("#me-cancel").onclick = ()=>{ $("#mmodal").hidden = true; };
+  $("#me-nofoto").onclick = ()=>{ draftPhoto=""; prev(); };
+  $("#me-file").onchange = async ev=>{ const f=ev.target.files[0]; ev.target.value=""; if(!f) return; try{ draftPhoto = await shrink(f); prev(); }catch(_){ const er=$("#me-err"); er.textContent="Não foi possível ler esta imagem."; er.hidden=false; } };
+  if(base) $("#me-del").onclick = async ev=>{ if(ev.target.dataset.sure!=="1"){ ev.target.dataset.sure="1"; ev.target.textContent="Confirmar exclusão"; return; } try{ await db.doc("mentores/"+base.id).delete(); $("#mmodal").hidden=true; toast("Mentor excluído."); }catch(_){ toast("Não foi possível excluir.", true); } };
+}
+$("#meditor").addEventListener("submit", async e=>{
+  e.preventDefault();
+  if(!mEditing) return;
+  const nome = $("#me-nome").value.trim(); const er = $("#me-err");
+  if(!nome){ er.textContent="Dê um nome ao mentor."; er.hidden=false; return; }
+  let link = $("#me-link").value.trim(); if(link && !safeUrl(link)) link = "https://"+link;
+  let id = mEditing.base?.id; if(!id){ id = slugify(nome); let k=2; while(MENTORS.some(x=>x.id===id)) id = slugify(nome)+"-"+(k++); }
+  const obj = {id, nome, order:Number($("#me-order").value)||99, formato:$("#me-formato").value.trim(), area:$("#me-area").value.trim(), bio:$("#me-bio").value.trim(), link,
+    foto:draftPhoto||"", fases:[...$("#meditor").querySelectorAll(".checks input:checked")].map(i=>i.value)};
+  $("#me-save").disabled = true;
+  try{
+    await db.doc("mentores/"+id).set(obj);
+    if(mEditing.cand){ try{ await db.doc("candidaturas/"+mEditing.cand.id).delete(); }catch(_){} }
+    $("#mmodal").hidden = true; toast("Mentor publicado.");
+  }catch(_){ $("#me-save").disabled = false; er.textContent="Não foi possível salvar agora."; er.hidden=false; }
+});
+$("#add-mentor").addEventListener("click", ()=>openMentorEditor(null));
+$("#mmodal").addEventListener("click", e=>{ if(e.target.id==="mmodal") $("#mmodal").hidden = true; });
+
+/* banco do site: conteúdo oficial editado pelo master */
+function normalize(d){
+  return {
+    id:String(d.id||""), order:Number(d.order)||99, name:String(d.name||""), segment:String(d.segment||""),
+    phase:PHASES.some(p=>p.id===d.phase)?d.phase:"subida", color:safeColor(d.color),
+    logos:Array.isArray(d.logos)?d.logos.slice(0,2).map(l=>({src:safeImg(l&&l.src),bg:safeColor(l&&l.bg)})).filter(l=>l.src):[],
+    summary:String(d.summary||""), why:String(d.why||""),
+    about:Array.isArray(d.about)?d.about.map(String):[], needs:Array.isArray(d.needs)?d.needs.map(String):[],
+    facts:Array.isArray(d.facts)?d.facts.map(f=>({k:String(f&&f.k||""),v:String(f&&f.v||"")})):[],
+    link:safeUrl(d.link), linkLabel:String(d.linkLabel||"Visitar site"),
+    mentoria:MENTOR.some(m=>m.id===d.mentoria)?d.mentoria:"", mentoriaNota:String(d.mentoriaNota||"")
+  };
+}
+(async ()=>{
+  try { user = await window.claude?.use?.("user"); } catch(_) { user = null; }
+  try { db = await window.claude?.use?.("db"); } catch(_) { db = null; }
+  if(!db) return;
+  db.collection("companies").orderBy("order").onSnapshot(snap=>{
+    if(snap.empty){ if(!snap.metadata.fromCache) dbHasData = false; return; }
+    dbHasData = true;
+    COMPANIES = snap.docs.filter(d=>d.exists).map(d=>normalize({...d.data(), id:d.id}));
+    renderHome(); route();
+  }, ()=>{});
+  db.collection("mentores").orderBy("order").onSnapshot(snap=>{
+    MENTORS = snap.docs.filter(d=>d.exists).map(d=>normMentor({...d.data(), id:d.id}));
+    if(!$("#view-mentores").hidden) renderMentors();
+  }, ()=>{});
+})();
+
+renderHome();
+window.addEventListener("hashchange", route);
+route();
+</script>
+</body>
+</html>
