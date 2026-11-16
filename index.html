@@ -202,6 +202,23 @@ aside.d-side{display:flex;flex-direction:column;gap:16px}
 .inbox .item{background:var(--card);border:1.5px solid var(--line);border-radius:16px;padding:16px;display:grid;grid-template-columns:1fr auto;gap:12px;align-items:start}
 .inbox .item p{margin:2px 0;font-size:14.5px}
 .inbox .item .acts{display:flex;gap:8px;flex-wrap:wrap}
+.cic{border:1.5px solid var(--ink);border-radius:20px;overflow:hidden;background:var(--card)}
+.cic-head{background:var(--c);color:var(--ct);padding:14px 20px;font-family:var(--display);font-weight:800;font-size:18px;letter-spacing:-.02em}
+.cic-body{padding:16px 20px;display:flex;flex-direction:column;gap:12px}
+.cic-row{display:grid;grid-template-columns:86px 1fr;gap:10px;align-items:start;font-size:15px}
+.cic-row b{font-family:var(--display);font-size:14px;padding-top:2px}
+.cic-row .btn{justify-self:start}
+.mlist{display:flex;flex-direction:column;gap:10px}
+.mrow{display:flex;gap:10px;align-items:center;text-decoration:none}
+.mrow .circ{width:44px;height:44px;padding:0;--c:var(--ink);background:var(--accent)}
+.mrow .circ img{width:100%;height:100%;object-fit:cover;border-radius:50%}
+.mrow .circ .ini{font-size:15px}
+.mrow small{display:block;color:var(--muted);font-weight:600}
+.cmini{display:inline-flex;gap:7px;align-items:center;font-weight:800;font-size:13.5px;text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:3px 10px 3px 3px;background:var(--paper)}
+.cmini .circ{width:28px;height:28px;padding:3px;border-width:1.5px;box-shadow:none}
+.cmini .circ .ini{font-size:10px}
+.mentor-line{font-size:14px;color:var(--muted);font-weight:600}
+.mentor-line b{color:var(--ink)}
 footer{border-top:1px solid var(--line);padding:32px 0;font-size:14px;color:var(--muted)}
 footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 
@@ -471,7 +488,8 @@ const DEFAULTS = [
    link:"https://neoesportiva.com.br", linkLabel:"Visitar neoesportiva.com.br"},
   {"id": "hubhunter", "order": 8, "name": "HubHunter", "segment": "Prospecção outbound com IA", "phase": "impulso", "color": "#F27A1A", "logos": [{"src": "logos/hubhunter.png", "bg": "#0E1119"}], "summary": "Plataforma que encontra, qualifica e aborda leads por e-mail, WhatsApp e LinkedIn e entrega a reunião agendada.", "why": "Levar a prospecção com IA para mais times comerciais e lançar a Iris, a IA de reuniões.", "about": ["O HubHunter é uma plataforma de prospecção outbound com IA: encontra empresas e decisores, enriquece os dados, conduz a abordagem por e-mail, WhatsApp e LinkedIn e entrega a reunião marcada para o time comercial fechar. Não é um CRM: cuida do topo e do meio do funil e alimenta o CRM que a empresa já usa.", "A Iris, sua IA de Meeting Intelligence, transforma a transcrição da reunião em proposta, roteiro e próximo passo, e devolve o aprendizado para a prospecção.", "Nasceu dentro do Grupo DOISM, da necessidade real de prospectar pontos e franqueados para o Minimart 24hrs, e depois foi aberto como produto."], "needs": ["Times comerciais B2B para demonstrações", "Redes de franquia recrutando franqueados", "Integrações com Pipedrive, HubSpot e RD Station"], "facts": [{"k": "Canais", "v": "E-mail, WhatsApp e LinkedIn"}, {"k": "Públicos", "v": "Empresas 100+, condomínios, PMEs, franqueados"}, {"k": "IA", "v": "Iris, Meeting Intelligence"}, {"k": "Origem", "v": "Grupo DOISM"}], "link": "https://hubhunter.com.br", "linkLabel": "Visitar hubhunter.com.br"},
   {"id": "habla", "order": 9, "name": "habla", "segment": "Mídia indoor para negócios locais", "phase": "impulso", "color": "#F97520", "logos": [{"src": "logos/habla.png", "bg": "#FFFFFF"}], "summary": "Telas de mídia indoor em condomínios e comércios para pequenos negócios anunciarem perto de quem compra deles.", "why": "Ampliar a rede de telas com novos parceiros e levar anúncios acessíveis a mais negócios de bairro.", "about": ["A habla é uma empresa de mídia indoor (MOOH) com o propósito de democratizar o acesso à comunicação em telas para pequenos negócios, empreendedores e comércios locais. Lema: “Se for pra aparecer, que seja pra dizer algo.”", "Para parceiros, a habla instala em comodato uma TV ou totem smart com Android, sem custo de setup. O parceiro organiza a programação em três playlists (negócios locais, parceiro e habla), vende anúncios para o comércio da região e fica com 100% da receita, gerenciando tudo por aplicativo.", "Para anunciantes, o Plano Visibilidade Local exibe vídeos de 15 segundos em condomínios e minimercados de autoatendimento, uma vez por hora, 24 horas por dia, com exclusividade por nicho e 7 dias grátis para testar."], "needs": ["Condomínios e comércios para receber telas", "Parceiros para vender anúncios na sua região", "Anunciantes locais: clínicas, salões, pet shops, restaurantes"], "facts": [{"k": "Anúncio", "v": "R$ 150/mês ou R$ 750/semestre"}, {"k": "Exibições", "v": "720+ por mês"}, {"k": "Parceiro", "v": "Tela em comodato, 100% da receita"}, {"k": "Base", "v": "Santo Amaro, São Paulo"}], "link": "", "linkLabel": "Visitar site"},
-  {"id": "minimart24hrs", "order": 10, "name": "Minimart 24hrs", "segment": "Minimercado autônomo · franquia", "phase": "", "color": "#38B6FF", "logos": [{"src": "logos/minimart.png", "bg": "#38B6FF"}], "summary": "Rede de minimercados de autoatendimento 24 horas, com mais de 130 lojas e 80 franqueados.", "why": "Empresa mentorada pela TTRAMPOLIM: sustentar o ritmo de expansão da rede e o suporte aos franqueados.", "about": ["A Minimart 24hrs opera minimercados de autoatendimento que funcionam 24 horas por dia, levando conveniência para dentro de condomínios e espaços onde as pessoas moram e trabalham.", "É uma rede de franquias com mais de 130 lojas e 80 franqueados. Faz parte do ecossistema do Grupo DOISM, e foi a necessidade de prospectar pontos e franqueados para a rede que deu origem ao HubHunter."], "needs": ["Condomínios para novos pontos", "Candidatos a franqueado", "Fornecedores e parceiros de abastecimento"], "facts": [{"k": "Rede", "v": "130+ lojas"}, {"k": "Franqueados", "v": "80+"}, {"k": "Funcionamento", "v": "24 horas, autoatendimento"}, {"k": "Instagram", "v": "@minimart24hrs"}], "link": "https://www.minimart24hrs.com.br", "linkLabel": "Visitar minimart24hrs.com.br", "mentoria": "em", "mentoriaNota": "Empresa mentorada pela TTRAMPOLIM. Instagram: @minimart24hrs"}
+  {"id": "minimart24hrs", "order": 10, "name": "Minimart 24hrs", "segment": "Minimercado autônomo · franquia", "phase": "", "color": "#38B6FF", "logos": [{"src": "logos/minimart.png", "bg": "#38B6FF"}], "summary": "Rede de minimercados de autoatendimento 24 horas, com mais de 130 lojas e 80 franqueados.", "why": "Empresa mentorada pela TTRAMPOLIM: sustentar o ritmo de expansão da rede e o suporte aos franqueados.", "about": ["A Minimart 24hrs opera minimercados de autoatendimento que funcionam 24 horas por dia, levando conveniência para dentro de condomínios e espaços onde as pessoas moram e trabalham.", "É uma rede de franquias com mais de 130 lojas e 80 franqueados. Faz parte do ecossistema do Grupo DOISM, e foi a necessidade de prospectar pontos e franqueados para a rede que deu origem ao HubHunter."], "needs": ["Condomínios para novos pontos", "Candidatos a franqueado", "Fornecedores e parceiros de abastecimento"], "facts": [{"k": "Rede", "v": "130+ lojas"}, {"k": "Franqueados", "v": "80+"}, {"k": "Funcionamento", "v": "24 horas, autoatendimento"}, {"k": "Instagram", "v": "@minimart24hrs"}], "link": "https://www.minimart24hrs.com.br", "linkLabel": "Visitar minimart24hrs.com.br", "mentoria": "em", "mentoriaNota": "Empresa mentorada pela TTRAMPOLIM. Instagram: @minimart24hrs"},
+  {"id": "blu", "order": 11, "name": "blu", "segment": "Chatbots e agentes de IA para atendimento", "phase": "impulso", "color": "#2D2369", "logos": [{"src": "logos/blu.png", "bg": "#FFFFFF"}], "summary": "Chatbots, agentes de IA e CRM que centralizam o atendimento de WhatsApp, Instagram e Messenger em um só painel.", "why": "Levar atendimento automatizado com IA a mais empresas e equipes comerciais.", "about": ["A blu é uma ferramenta de chatbots e agentes de inteligência artificial para atendimento ao cliente. Assinatura: chatbot, agent, CRM.", "Centraliza as mensagens do WhatsApp oficial, Instagram e Messenger em um único painel para equipes, com filas de espera, transbordo de conversas entre atendentes, funis de vendas e CRM visual.", "Os chatbots e agentes de IA fazem a pré-qualificação de leads e o suporte automatizado, liberando a equipe para as conversas que mais importam."], "needs": ["Empresas com alto volume de atendimento", "Equipes comerciais que vendem pelo WhatsApp", "Parceiros e revendedores"], "facts": [{"k": "Canais", "v": "WhatsApp oficial, Instagram, Messenger"}, {"k": "Atendimento", "v": "Filas, transbordo, funis e CRM"}, {"k": "IA", "v": "Chatbots e agentes"}], "link": "", "linkLabel": "Visitar site", "mentoria": "", "mentoriaNota": ""}
 ];
 
 let COMPANIES = DEFAULTS.map(c=>structuredClone(c));
@@ -536,6 +554,7 @@ function renderGrid(){
         <div class="co-head">${circlesHTML(c)}<div><h3>${esc(c.name)}</h3><div class="seg">${esc(c.segment)}</div></div></div>
         <p>${esc(c.summary)}</p>
         <div class="why"><b>Por que está aqui</b>${esc(c.why)}</div>
+        ${mentorsOf(c.id).length?`<div class="mentor-line">Mentoria com <b>${mentorsOf(c.id).map(m=>esc(m.nome)).join(", ")}</b></div>`:""}
         ${c.phase?track(c):""}
         <div class="co-foot"><span class="pills">${c.phase?pill(phaseOf(c.phase)):""}${mpill(c)}</span><a class="more" href="#${esc(c.id)}">Ver empresa →</a></div>
       </div></article>`);
@@ -547,6 +566,13 @@ function renderGrid(){
 }
 function renderHome(){ renderStats(); renderPhases(); renderFilters(); renderGrid(); }
 
+function mentorsOf(id){ return MENTORS.filter(m=>(m.empresas||[]).includes(id)).sort((a,b)=>a.order-b.order); }
+function contactHTML(v){
+  const t = String(v||"").trim(); if(!t) return "";
+  if(/^\S+@\S+\.\S+$/.test(t)) return `<a href="mailto:${esc(t)}">${esc(t)}</a>`;
+  const d = t.replace(/\D/g,""); if(d.length>=10) return `<a href="https://wa.me/${d.length<=11?"55"+d:d}" target="_blank" rel="noopener">${esc(t)}</a> <span class="note">(WhatsApp)</span>`;
+  return esc(t);
+}
 function renderDetail(c){
   const p = phaseOf(c.phase), n = idx(c.phase), col = safeColor(c.color), url = safeUrl(c.link);
   const linkBtn = url
@@ -567,8 +593,15 @@ function renderDetail(c){
           ${PHASES.map((q,i)=>`<div class="j ${i<n?"past":""}"><span class="jd" style="${i<n?"background:var(--ink);color:#fff":i===n?`background:${col};border-color:${col};color:${textOn(col)}`:""}">${i<n?"✓":i+1}</span>${q.name} <span style="color:var(--muted);font-weight:500">· ${q.classic}</span>${i===n?`<span style="margin-left:auto;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.06em">agora</span>`:""}</div>`).join("")}
         </div></div>`:""}
         ${c.mentoria?`<div class="box" style="${c.mentoria==="em"?"background:var(--accent)":""}"><h3>Mentoria</h3><p style="margin:0 0 6px;font-weight:800">${c.mentoria==="em"?"Em mentoria na TTRAMPOLIM":"Busca mentoria"}</p>${c.mentoriaNota?`<p style="margin:0">${esc(c.mentoriaNota)}</p>`:""}</div>`:""}
+        <div class="box"><h3>Mentores</h3>${(()=>{ const ms = mentorsOf(c.id); return ms.length
+            ? `<div class="mlist">${ms.map(m=>`<a class="mrow" href="#mentores">${mentorCircle(m)}<span><b>${esc(m.nome)}</b><small>${esc(m.area)}</small></span></a>`).join("")}</div>`
+            : `<p class="note" style="margin:0">Nenhum mentor vinculado ainda.</p>`; })()}</div>
         <div class="box"><h3>Em resumo</h3><dl class="facts">${(c.facts||[]).map(f=>`<dt>${esc(f.k)}</dt><dd>${esc(f.v)}</dd>`).join("")}</dl></div>
-        ${url?`<a class="btn site-btn" href="${esc(url)}" target="_blank" rel="noopener">${esc(c.linkLabel||"Visitar site")} ↗</a>`:""}
+        <div class="cic"><div class="cic-head">Conheça · Indique · Contrate</div><div class="cic-body">
+          <div class="cic-row"><b>Conheça</b>${url?`<a class="btn sm site-btn" href="${esc(url)}" target="_blank" rel="noopener">${esc(c.linkLabel||"Visitar site")} ↗</a>`:`<span class="note">Site em breve</span>`}</div>
+          <div class="cic-row"><b>Indique</b><button class="btn sm" type="button" data-share="${esc(c.id)}">Copiar indicação</button></div>
+          <div class="cic-row"><b>Contrate</b><span>${contactHTML(c.contato) || (url?`Fale com a ${esc(c.name)} pelo site.`:`<span class="note">Contato em breve</span>`)}</span></div>
+        </div></div>
       </aside>
     </div></div></div>`;
 }
@@ -607,6 +640,8 @@ document.addEventListener("click", e=>{
   if(cdel){ delDoc(cdel.dataset.cdel, cdel); return; }
   const icr = e.target.closest("[data-icreate]");
   if(icr){ const it = INSCS.find(x=>x.id===icr.dataset.icreate); if(it) openEditor(null, it); return; }
+  const sh = e.target.closest("[data-share]");
+  if(sh){ const co = COMPANIES.find(x=>x.id===sh.dataset.share); if(co) copyText(`Conheça a ${co.name}: ${co.summary}${co.link?" "+co.link:""} (indicação TTRAMPOLIM)`); return; }
   const go = e.target.closest("[data-goto]");
   if(go){ filter = go.dataset.goto; renderFilters(); renderGrid(); document.getElementById("empresas").scrollIntoView({behavior:"smooth"}); return; }
   const chip = e.target.closest(".chip[data-f]");
@@ -683,6 +718,7 @@ function openEditor(id, pre){
       <label class="f">Mentoria<select id="e-mentoria"><option value="" ${!c.mentoria?"selected":""}>Sem mentoria</option>${MENTOR.map(m=>`<option value="${m.id}" ${c.mentoria===m.id?"selected":""}>${m.name}</option>`).join("")}</select></label>
       <label class="f">Detalhe da mentoria <small>Ex.: área, mentor ou período.</small><input id="e-mnota" value="${esc(c.mentoriaNota)}" placeholder="Ex.: gestão financeira e expansão"></label>
     </div>
+    <label class="f">Contato para contratar <small>E-mail ou WhatsApp da empresa (aparece em “Conheça · Indique · Contrate”).</small><input id="e-contato" value="${esc(c.contato)}" placeholder="contato@empresa.com.br ou (11) 90000-0000"></label>
     <label class="f">Ordem na vitrine<input id="e-order" type="number" min="1" value="${esc(c.order)}"></label>
     <div class="msg err" id="e-err" hidden></div>
     <div class="sheet-actions">
@@ -758,7 +794,7 @@ $("#editor").addEventListener("submit", async e=>{
     needs: $("#e-needs").value.split("\n").map(s=>s.trim()).filter(Boolean),
     facts: $("#e-facts").value.split("\n").map(s=>s.trim()).filter(Boolean).map(l=>{const i=l.indexOf(":");return i>0?{k:l.slice(0,i).trim(),v:l.slice(i+1).trim()}:{k:l,v:""};}),
     link, linkLabel: $("#e-linklabel").value.trim() || "Visitar site",
-    mentoria: $("#e-mentoria").value, mentoriaNota: $("#e-mnota").value.trim()
+    mentoria: $("#e-mentoria").value, mentoriaNota: $("#e-mnota").value.trim(), contato: $("#e-contato").value.trim()
   };
   $("#e-save").disabled = true; $("#e-save").textContent = "Salvando…";
   try{
@@ -805,7 +841,7 @@ $("#m-fases").innerHTML = PHASES.map(p=>`<label><input type="checkbox" value="${
 function normMentor(d){
   return {id:String(d.id||""), order:Number(d.order)||99, nome:String(d.nome||""), area:String(d.area||""), bio:String(d.bio||""),
     link:safeUrl(d.link), foto:safeImg(d.foto), fases:Array.isArray(d.fases)?d.fases.filter(f=>PHASES.some(p=>p.id===f)):[],
-    formato:String(d.formato||""), disp:String(d.disp||"")};
+    formato:String(d.formato||""), disp:String(d.disp||""), empresas:Array.isArray(d.empresas)?d.empresas.map(String):[]};
 }
 function mentorCircle(m){
   return m.foto ? `<span class="circ photo"><img src="${m.foto}" alt="${esc(m.nome)}"></span>` : `<span class="circ"><span class="ini">${esc(initials(m.nome))}</span></span>`;
@@ -817,6 +853,7 @@ function renderMentors(){
       <div class="co-head"><div class="circles">${mentorCircle(m)}</div><div><h3>${esc(m.nome)}</h3><div class="seg">${esc(m.formato)}</div></div></div>
       <div class="tags">${m.area.split(",").map(t=>t.trim()).filter(Boolean).map(t=>`<span class="tag">${esc(t)}</span>`).join("")}</div>
       <p>${esc(m.bio)}</p>
+      ${m.empresas.length?`<div><p class="note" style="margin:0 0 6px">Mentorando:</p><div class="tags">${m.empresas.map(id=>COMPANIES.find(c=>c.id===id)).filter(Boolean).map(c=>`<a class="cmini" href="#${esc(c.id)}" style="--c:${safeColor(c.color)}">${circlesHTML(c).replace('<div class="circles">','').replace(/<\/div>$/,'')}${esc(c.name)}</a>`).join("")}</div></div>`:""}
       ${m.fases.length?`<p class="note">Ajuda nas fases: <b style="color:var(--ink)">${m.fases.map(f=>phaseOf(f).name).join(", ")}</b></p>`:""}
       ${m.link?`<a class="more" style="--c:var(--accent);align-self:flex-start" href="${esc(m.link)}" target="_blank" rel="noopener">Ver perfil ↗</a>`:""}
     </article>`);
@@ -873,7 +910,7 @@ let mEditing = null;
 function openMentorEditor(id, cand){
   if(!masterOn) return;
   const base = id ? MENTORS.find(m=>m.id===id) : null;
-  const m = base ? {...base} : {id:"", order:MENTORS.length+1, nome:cand?.nome||"", area:cand?.area||"", bio:cand?.bio||"", link:safeUrl(cand?.link)||"", foto:"", fases:cand?.fases||[], formato:cand?.formato||"", disp:cand?.disp||""};
+  const m = base ? {...base} : {id:"", order:MENTORS.length+1, nome:cand?.nome||"", area:cand?.area||"", bio:cand?.bio||"", link:safeUrl(cand?.link)||"", foto:"", fases:cand?.fases||[], formato:cand?.formato||"", disp:cand?.disp||"", empresas:[]};
   mEditing = {base, m, cand}; draftPhoto = m.foto||"";
   $("#meditor").innerHTML = `
     <div style="display:flex;justify-content:space-between;align-items:center;gap:12px"><h2 id="me-title">${base?"Editar mentor":cand?"Aprovar mentor":"Novo mentor"}</h2><button type="button" class="btn sm" id="me-close">Fechar</button></div>
@@ -881,7 +918,8 @@ function openMentorEditor(id, cand){
     <label class="f">Áreas <small>Separe por vírgula.</small><input id="me-area" value="${esc(m.area)}"></label>
     <label class="f">Sobre o mentor<textarea id="me-bio" rows="4">${esc(m.bio)}</textarea></label>
     <label class="f">LinkedIn ou site<input id="me-link" value="${esc(m.link)}" placeholder="https://"></label>
-    <div class="f" style="display:flex;flex-direction:column;gap:8px;font-weight:800;font-size:14px">Fases em que ajuda<div class="checks">${PHASES.map(p=>`<label><input type="checkbox" value="${p.id}" ${m.fases.includes(p.id)?"checked":""}> ${p.name}</label>`).join("")}</div></div>
+    <div class="f" style="display:flex;flex-direction:column;gap:8px;font-weight:800;font-size:14px">Empresas que mentora<div class="checks" id="me-emp">${sorted().map(c=>`<label><input type="checkbox" value="${esc(c.id)}" ${(m.empresas||[]).includes(c.id)?"checked":""}> ${esc(c.name)}</label>`).join("")}</div></div>
+    <div class="f" style="display:flex;flex-direction:column;gap:8px;font-weight:800;font-size:14px">Fases em que ajuda<div class="checks" id="me-fases">${PHASES.map(p=>`<label><input type="checkbox" value="${p.id}" ${m.fases.includes(p.id)?"checked":""}> ${p.name}</label>`).join("")}</div></div>
     <div class="f" style="display:flex;flex-direction:column;gap:8px;font-weight:800;font-size:14px">Foto <small style="font-weight:500;color:var(--muted)">Opcional. Sem foto, aparecem as iniciais.</small>
       <div class="logo-prev" id="me-prev"></div>
       <div style="display:flex;gap:10px"><label class="btn sm" for="me-file" style="cursor:pointer">Escolher foto</label><input id="me-file" type="file" accept="image/png,image/jpeg,image/webp" hidden><button type="button" class="btn sm" id="me-nofoto">Remover foto</button></div></div>
@@ -905,7 +943,7 @@ $("#meditor").addEventListener("submit", async e=>{
   let link = $("#me-link").value.trim(); if(link && !safeUrl(link)) link = "https://"+link;
   let id = mEditing.base?.id; if(!id){ id = slugify(nome); let k=2; while(MENTORS.some(x=>x.id===id)) id = slugify(nome)+"-"+(k++); }
   const obj = {id, nome, order:Number($("#me-order").value)||99, formato:$("#me-formato").value.trim(), area:$("#me-area").value.trim(), bio:$("#me-bio").value.trim(), link,
-    foto:draftPhoto||"", fases:[...$("#meditor").querySelectorAll(".checks input:checked")].map(i=>i.value)};
+    foto:draftPhoto||"", fases:[...$("#me-fases").querySelectorAll("input:checked")].map(i=>i.value), empresas:[...$("#me-emp").querySelectorAll("input:checked")].map(i=>i.value)};
   $("#me-save").disabled = true;
   try{
     await db.doc("mentores/"+id).set(obj);
@@ -926,7 +964,7 @@ function normalize(d){
     about:Array.isArray(d.about)?d.about.map(String):[], needs:Array.isArray(d.needs)?d.needs.map(String):[],
     facts:Array.isArray(d.facts)?d.facts.map(f=>({k:String(f&&f.k||""),v:String(f&&f.v||"")})):[],
     link:safeUrl(d.link), linkLabel:String(d.linkLabel||"Visitar site"),
-    mentoria:MENTOR.some(m=>m.id===d.mentoria)?d.mentoria:"", mentoriaNota:String(d.mentoriaNota||"")
+    mentoria:MENTOR.some(m=>m.id===d.mentoria)?d.mentoria:"", mentoriaNota:String(d.mentoriaNota||""), contato:String(d.contato||"")
   };
 }
 (async ()=>{
@@ -941,7 +979,10 @@ function normalize(d){
   }, ()=>{});
   db.collection("mentores").orderBy("order").onSnapshot(snap=>{
     MENTORS = snap.docs.filter(d=>d.exists).map(d=>normMentor({...d.data(), id:d.id}));
+    renderGrid(); renderStats();
+    const h = decodeURIComponent(location.hash.slice(1));
     if(!$("#view-mentores").hidden) renderMentors();
+    else if(!$("#view-detail").hidden){ const c = COMPANIES.find(x=>x.id===h); if(c) renderDetail(c); }
   }, ()=>{});
 })();
 
