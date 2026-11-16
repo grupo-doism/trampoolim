@@ -56,7 +56,7 @@ nav.main .master.on{background:var(--accent);color:var(--on-accent);border-color
 .btn.solid:hover{background:var(--ink);border-color:var(--ink);color:#fff}
 .btn:not(.solid):hover{background:var(--ink);color:#fff}
 .btn.sm{padding:8px 14px;font-size:14px;border-width:1.5px}
-.hero-art{aspect-ratio:1/1;max-width:420px;justify-self:end;width:100%;border-radius:32px;display:block}
+.hero-art{aspect-ratio:1/1;max-width:420px;justify-self:end;align-self:start;width:100%;border-radius:32px;display:block}
 .stats{display:flex;gap:32px;flex-wrap:wrap;margin-top:40px}
 .stat b{display:block;font-family:var(--display);font-size:40px;line-height:1;font-variant-numeric:tabular-nums}
 .stat span{font-size:14px;color:var(--muted);font-weight:700}
@@ -438,7 +438,7 @@ const DEFAULTS = [
    needs:["Marcas em expansão que precisam padronizar lojas","Startups que vão abrir o primeiro ponto físico","Parcerias com franqueadoras"],
    facts:[{k:"yoshizane",v:"Estudo e estratégia"},{k:"Kobō",v:"Criação e design"},{k:"Local",v:"São Paulo, SP"}],
    link:"https://yoshizane.arq.br", linkLabel:"Visitar yoshizane.arq.br"},
-  {id:"olavo", order:2, name:"Olavo Lavanderia Express", segment:"Lavanderia self-service", phase:"salto",
+  {id:"olavo", order:2, name:"Olavo Lavanderia Express", segment:"Lavanderia self-service", phase:"voo",
    color:"#145DA0", logos:[{src:"logos/olavo.png",bg:"#145DA0"}],
    summary:"Rede de lavanderias self-service com duas unidades em operação.",
    why:"Estruturar o modelo para replicar novas unidades e preparar a expansão.",
@@ -446,7 +446,7 @@ const DEFAULTS = [
    needs:["Parceiros para novas unidades","Padronização para um futuro modelo de franquia","Canais de captação de interessados"],
    facts:[{k:"Unidades",v:"2 em operação"},{k:"Modelo",v:"Self-service"},{k:"Conteúdo",v:"E-book gratuito"}],
    link:"", linkLabel:"Visitar site"},
-  {id:"torra", order:3, name:"Torra+", segment:"Café · locação de máquinas e vending", phase:"salto",
+  {id:"torra", order:3, name:"Torra+", segment:"Café · locação de máquinas e vending", phase:"voo",
    color:"#BA3A1B", logos:[{src:"logos/torra.png",bg:"#FFFFFF"}],
    summary:"Marca de café que aluga máquinas para empresas e eventos e opera vending machines.",
    why:"Ampliar a base de clientes de locação e abrir novos pontos de vending.",
@@ -462,7 +462,7 @@ const DEFAULTS = [
    needs:["Cotistas para a captação de R$ 200 mil (20 cotas de R$ 10 mil)","Ponto para o piloto","Fornecedores para a marca própria de café"],
    facts:[{k:"Captação",v:"R$ 200 mil · 20 cotas"},{k:"Formatos",v:"Microloja, quiosque, coffee station"},{k:"Franquia",v:"Royalties 5% + 1% marketing"}],
    link:"", linkLabel:"Visitar site"},
-  {id:"fluxxu", order:5, name:"fluxxu", segment:"Software financeiro para autoatendimento", phase:"impulso",
+  {id:"fluxxu", order:5, name:"fluxxu", segment:"Software financeiro para autoatendimento", phase:"salto",
    color:"#00BF63", logos:[{src:"logos/fluxxu.png",bg:"#00BF63"}],
    summary:"Controle financeiro sem planilha para mercados autônomos, lavanderias, coffee stations e vending machines.",
    why:"Levar o financeiro em ordem a mais negócios de autoatendimento e redes com várias unidades.",
@@ -470,7 +470,7 @@ const DEFAULTS = [
    needs:["Novos clientes de autoatendimento","Parcerias com fabricantes e operadores de máquinas","Redes e franquias com várias unidades"],
    facts:[{k:"Preço",v:"R$ 50 por loja ativa/mês"},{k:"Teste",v:"30 dias grátis"},{k:"Visão",v:"Por unidade ou máquina"}],
    link:"https://fluxxu.com.br", linkLabel:"Visitar fluxxu.com.br"},
-  {id:"movva", order:6, name:"MovvaCRM", segment:"CRM com IA para franquias", phase:"impulso",
+  {id:"movva", order:6, name:"MovvaCRM", segment:"CRM com IA para franquias", phase:"salto",
    color:"#0B1A5C", logos:[{src:"logos/movva.png",bg:"#FFFFFF"}],
    summary:"CRM com inteligência artificial para franqueadoras e redes de franquias.",
    why:"Conquistar as primeiras redes de franquias e provar o ganho de eficiência na expansão.",
@@ -486,10 +486,10 @@ const DEFAULTS = [
    needs:["Novos condomínios, empresas e escolas","Profissionais de educação física parceiros","Patrocinadores para programas"],
    facts:[{k:"Público",v:"Condomínios, empresas, escolas"},{k:"Plataforma",v:"App NEO Club"},{k:"Serviço",v:"Da implantação aos indicadores"}],
    link:"https://neoesportiva.com.br", linkLabel:"Visitar neoesportiva.com.br"},
-  {"id": "hubhunter", "order": 8, "name": "HubHunter", "segment": "Prospecção outbound com IA", "phase": "impulso", "color": "#F27A1A", "logos": [{"src": "logos/hubhunter.png", "bg": "#0E1119"}], "summary": "Plataforma que encontra, qualifica e aborda leads por e-mail, WhatsApp e LinkedIn e entrega a reunião agendada.", "why": "Levar a prospecção com IA para mais times comerciais e lançar a Iris, a IA de reuniões.", "about": ["O HubHunter é uma plataforma de prospecção outbound com IA: encontra empresas e decisores, enriquece os dados, conduz a abordagem por e-mail, WhatsApp e LinkedIn e entrega a reunião marcada para o time comercial fechar. Não é um CRM: cuida do topo e do meio do funil e alimenta o CRM que a empresa já usa.", "A Iris, sua IA de Meeting Intelligence, transforma a transcrição da reunião em proposta, roteiro e próximo passo, e devolve o aprendizado para a prospecção.", "Nasceu dentro do Grupo DOISM, da necessidade real de prospectar pontos e franqueados para o Minimart 24hrs, e depois foi aberto como produto."], "needs": ["Times comerciais B2B para demonstrações", "Redes de franquia recrutando franqueados", "Integrações com Pipedrive, HubSpot e RD Station"], "facts": [{"k": "Canais", "v": "E-mail, WhatsApp e LinkedIn"}, {"k": "Públicos", "v": "Empresas 100+, condomínios, PMEs, franqueados"}, {"k": "IA", "v": "Iris, Meeting Intelligence"}, {"k": "Origem", "v": "Grupo DOISM"}], "link": "https://hubhunter.com.br", "linkLabel": "Visitar hubhunter.com.br"},
+  {"id": "hubhunter", "order": 8, "name": "HubHunter", "segment": "Prospecção outbound com IA", "phase": "salto", "color": "#F27A1A", "logos": [{"src": "logos/hubhunter.png", "bg": "#0E1119"}], "summary": "Plataforma que encontra, qualifica e aborda leads por e-mail, WhatsApp e LinkedIn e entrega a reunião agendada.", "why": "Levar a prospecção com IA para mais times comerciais e lançar a Iris, a IA de reuniões.", "about": ["O HubHunter é uma plataforma de prospecção outbound com IA: encontra empresas e decisores, enriquece os dados, conduz a abordagem por e-mail, WhatsApp e LinkedIn e entrega a reunião marcada para o time comercial fechar. Não é um CRM: cuida do topo e do meio do funil e alimenta o CRM que a empresa já usa.", "A Iris, sua IA de Meeting Intelligence, transforma a transcrição da reunião em proposta, roteiro e próximo passo, e devolve o aprendizado para a prospecção.", "Nasceu dentro do Grupo DOISM, da necessidade real de prospectar pontos e franqueados para o Minimart 24hrs, e depois foi aberto como produto."], "needs": ["Times comerciais B2B para demonstrações", "Redes de franquia recrutando franqueados", "Integrações com Pipedrive, HubSpot e RD Station"], "facts": [{"k": "Canais", "v": "E-mail, WhatsApp e LinkedIn"}, {"k": "Públicos", "v": "Empresas 100+, condomínios, PMEs, franqueados"}, {"k": "IA", "v": "Iris, Meeting Intelligence"}, {"k": "Origem", "v": "Grupo DOISM"}], "link": "https://hubhunter.com.br", "linkLabel": "Visitar hubhunter.com.br"},
   {"id": "habla", "order": 9, "name": "habla", "segment": "Mídia indoor para negócios locais", "phase": "impulso", "color": "#F97520", "logos": [{"src": "logos/habla.png", "bg": "#FFFFFF"}], "summary": "Telas de mídia indoor em condomínios e comércios para pequenos negócios anunciarem perto de quem compra deles.", "why": "Ampliar a rede de telas com novos parceiros e levar anúncios acessíveis a mais negócios de bairro.", "about": ["A habla é uma empresa de mídia indoor (MOOH) com o propósito de democratizar o acesso à comunicação em telas para pequenos negócios, empreendedores e comércios locais. Lema: “Se for pra aparecer, que seja pra dizer algo.”", "Para parceiros, a habla instala em comodato uma TV ou totem smart com Android, sem custo de setup. O parceiro organiza a programação em três playlists (negócios locais, parceiro e habla), vende anúncios para o comércio da região e fica com 100% da receita, gerenciando tudo por aplicativo.", "Para anunciantes, o Plano Visibilidade Local exibe vídeos de 15 segundos em condomínios e minimercados de autoatendimento, uma vez por hora, 24 horas por dia, com exclusividade por nicho e 7 dias grátis para testar."], "needs": ["Condomínios e comércios para receber telas", "Parceiros para vender anúncios na sua região", "Anunciantes locais: clínicas, salões, pet shops, restaurantes"], "facts": [{"k": "Anúncio", "v": "R$ 150/mês ou R$ 750/semestre"}, {"k": "Exibições", "v": "720+ por mês"}, {"k": "Parceiro", "v": "Tela em comodato, 100% da receita"}, {"k": "Base", "v": "Santo Amaro, São Paulo"}], "link": "", "linkLabel": "Visitar site"},
   {"id": "minimart24hrs", "order": 10, "name": "Minimart 24hrs", "segment": "Minimercado autônomo · franquia", "phase": "", "color": "#38B6FF", "logos": [{"src": "logos/minimart.png", "bg": "#38B6FF"}], "summary": "Rede de minimercados de autoatendimento 24 horas, com mais de 130 lojas e 80 franqueados.", "why": "Empresa mentorada pela TTRAMPOLIM: sustentar o ritmo de expansão da rede e o suporte aos franqueados.", "about": ["A Minimart 24hrs opera minimercados de autoatendimento que funcionam 24 horas por dia, levando conveniência para dentro de condomínios e espaços onde as pessoas moram e trabalham.", "É uma rede de franquias com mais de 130 lojas e 80 franqueados. Faz parte do ecossistema do Grupo DOISM, e foi a necessidade de prospectar pontos e franqueados para a rede que deu origem ao HubHunter."], "needs": ["Condomínios para novos pontos", "Candidatos a franqueado", "Fornecedores e parceiros de abastecimento"], "facts": [{"k": "Rede", "v": "130+ lojas"}, {"k": "Franqueados", "v": "80+"}, {"k": "Funcionamento", "v": "24 horas, autoatendimento"}, {"k": "Instagram", "v": "@minimart24hrs"}], "link": "https://www.minimart24hrs.com.br", "linkLabel": "Visitar minimart24hrs.com.br", "mentoria": "em", "mentoriaNota": "Empresa mentorada pela TTRAMPOLIM. Instagram: @minimart24hrs"},
-  {"id": "blu", "order": 11, "name": "blu", "segment": "Chatbots e agentes de IA para atendimento", "phase": "impulso", "color": "#2D2369", "logos": [{"src": "logos/blu.png", "bg": "#FFFFFF"}], "summary": "Chatbots, agentes de IA e CRM que centralizam o atendimento de WhatsApp, Instagram e Messenger em um só painel.", "why": "Levar atendimento automatizado com IA a mais empresas e equipes comerciais.", "about": ["A blu é uma ferramenta de chatbots e agentes de inteligência artificial para atendimento ao cliente. Assinatura: chatbot, agent, CRM.", "Centraliza as mensagens do WhatsApp oficial, Instagram e Messenger em um único painel para equipes, com filas de espera, transbordo de conversas entre atendentes, funis de vendas e CRM visual.", "Os chatbots e agentes de IA fazem a pré-qualificação de leads e o suporte automatizado, liberando a equipe para as conversas que mais importam."], "needs": ["Empresas com alto volume de atendimento", "Equipes comerciais que vendem pelo WhatsApp", "Parceiros e revendedores"], "facts": [{"k": "Canais", "v": "WhatsApp oficial, Instagram, Messenger"}, {"k": "Atendimento", "v": "Filas, transbordo, funis e CRM"}, {"k": "IA", "v": "Chatbots e agentes"}], "link": "", "linkLabel": "Visitar site", "mentoria": "", "mentoriaNota": ""}
+  {"id": "blu", "order": 11, "name": "blu", "segment": "Chatbots e agentes de IA para atendimento", "phase": "salto", "color": "#2D2369", "logos": [{"src": "logos/blu.png", "bg": "#FFFFFF"}], "summary": "Chatbots, agentes de IA e CRM que centralizam o atendimento de WhatsApp, Instagram e Messenger em um só painel.", "why": "Levar atendimento automatizado com IA a mais empresas e equipes comerciais.", "about": ["A blu é uma ferramenta de chatbots e agentes de inteligência artificial para atendimento ao cliente. Assinatura: chatbot, agent, CRM.", "Centraliza as mensagens do WhatsApp oficial, Instagram e Messenger em um único painel para equipes, com filas de espera, transbordo de conversas entre atendentes, funis de vendas e CRM visual.", "Os chatbots e agentes de IA fazem a pré-qualificação de leads e o suporte automatizado, liberando a equipe para as conversas que mais importam."], "needs": ["Empresas com alto volume de atendimento", "Equipes comerciais que vendem pelo WhatsApp", "Parceiros e revendedores"], "facts": [{"k": "Canais", "v": "WhatsApp oficial, Instagram, Messenger"}, {"k": "Atendimento", "v": "Filas, transbordo, funis e CRM"}, {"k": "IA", "v": "Chatbots e agentes"}], "link": "", "linkLabel": "Visitar site", "mentoria": "", "mentoriaNota": ""}
 ];
 
 let COMPANIES = DEFAULTS.map(c=>structuredClone(c));
@@ -986,6 +986,19 @@ function normalize(d){
   }, ()=>{});
 })();
 
+function alignHero(){
+  const h = document.querySelector(".hero h1"), art = document.querySelector(".hero-art"); if(!h||!art) return;
+  if(window.innerWidth <= 900){ art.style.marginTop=""; art.style.width=""; art.style.maxWidth=""; return; }
+  art.style.marginTop = "0px";
+  const col = art.parentElement.getBoundingClientRect();
+  const hb = h.getBoundingClientRect();
+  art.style.maxWidth = "none";
+  art.style.width = Math.round(hb.height) + "px";
+  art.style.marginTop = Math.round(hb.top - col.top) + "px";
+}
+window.addEventListener("resize", alignHero);
+document.fonts && document.fonts.ready.then(alignHero);
+setTimeout(alignHero, 300);
 renderHome();
 window.addEventListener("hashchange", route);
 route();
