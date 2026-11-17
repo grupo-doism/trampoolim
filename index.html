@@ -221,6 +221,12 @@ aside.d-side{display:flex;flex-direction:column;gap:16px}
 .cmini .circ .ini{font-size:10px}
 .mentor-line{font-size:14px;color:var(--muted);font-weight:600}
 .mentor-line b{color:var(--ink)}
+.ebook{display:grid;grid-template-columns:150px 1fr;gap:22px;align-items:start;border:1.5px solid var(--ink);border-radius:22px;padding:20px;background:var(--card);margin-bottom:30px}
+.ebook img{width:100%;border-radius:10px;box-shadow:0 10px 24px -12px rgba(0,0,0,.5)}
+.ebook h2{margin-bottom:6px}
+.ebook form{display:grid;gap:10px;margin-top:12px}
+.ebook .row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media (max-width:560px){.ebook{grid-template-columns:1fr}.ebook img{max-width:160px}.ebook .row2{grid-template-columns:1fr}}
 footer{border-top:1px solid var(--line);padding:32px 0;font-size:14px;color:var(--muted)}
 footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 
@@ -356,7 +362,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
         <label class="f full">Por que quer entrar na TRAMPOOLIM?<textarea id="f-why" rows="4" placeholder="O que você busca: investimento, sócios, parceiros, mentoria, clientes…"></textarea></label>
         <div class="full" style="display:flex;gap:16px;align-items:center;flex-wrap:wrap">
           <button class="btn solid" type="submit">Enviar inscrição</button>
-          <span class="note">A inscrição chega para a equipe TRAMPOOLIM analisar.</span>
+          <span class="note">A inscrição chega para a equipe TRAMPOOLIM analisar. Dúvidas: contato@trampoolim.com</span>
         </div>
         <div class="msg full" id="ok" role="status" hidden></div>
       </form>
@@ -415,6 +421,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 <footer>
   <div class="wrap">
     <span style="display:inline-flex;align-items:center;gap:10px"><img src="logos/trampoolim-simbolo.png" alt="" width="34" height="34" style="border-radius:8px"><span><b style="color:var(--ink)">TRAMPOOLIM</b> · pool de empresas, startups, marcas e projetos · São Paulo, SP</span></span>
+    <a href="mailto:contato@trampoolim.com" style="font-weight:700;color:var(--ink)">contato@trampoolim.com</a>
   </div>
 </footer>
 
@@ -430,68 +437,17 @@ const MENTOR = [{id:"em",name:"Empresas mentoradas"},{id:"busca",name:"Busca men
 function mpill(c){ return c.mentoria==="em"?`<span class="mpill em">Mentorada</span>`:c.mentoria==="busca"?`<span class="mpill busca">Busca mentoria</span>`:""; }
 
 /* Conteúdo inicial. Depois de publicado, o conteúdo oficial fica no banco do site e é editado pelo painel do master. */
-const DEFAULTS = [
-  {id:"yoshizane-kobo", order:1, name:"yoshizane + Kobō", segment:"Arquitetura e estúdio criativo", phase:"salto",
-   color:"#FF3333", logos:[{src:"logos/yoshizane.png",bg:"#FFFFFF"},{src:"logos/kobo.png",bg:"#FF3131"}],
-   summary:"A yoshizane estuda e planeja espaços comerciais; a Kobō, seu estúdio criativo, cria os projetos e o design.",
-   why:"Ser o braço de arquitetura da rede: levar o espaço físico das empresas da TRAMPOOLIM do estudo à obra.",
-   about:["yoshizane 吉眞: arquitetura orientada a produtividade, performance e escala. Estuda o negócio para que o espaço físico trabalhe a favor do faturamento.","Kobō 工房: o estúdio criativo da yoshizane. Em japonês, Kobō significa oficina, ateliê, o lugar onde as ideias ganham forma. Cuida da criação de projetos e design, com trabalhos em cafés, restaurantes, Airbnb, conveniências, lavanderias e contêineres."],
-   needs:["Marcas em expansão que precisam padronizar lojas","Startups que vão abrir o primeiro ponto físico","Parcerias com franqueadoras"],
-   facts:[{k:"yoshizane",v:"Estudo e estratégia"},{k:"Kobō",v:"Criação e design"},{k:"Local",v:"São Paulo, SP"}],
-   link:"https://yoshizane.arq.br", linkLabel:"Visitar yoshizane.arq.br"},
-  {id:"olavo", order:2, name:"Olavo Lavanderia Express", segment:"Lavanderia self-service", phase:"voo",
-   color:"#145DA0", logos:[{src:"logos/olavo.png",bg:"#145DA0"}],
-   summary:"Rede de lavanderias self-service com duas unidades em operação.",
-   why:"Estruturar o modelo para replicar novas unidades e preparar a expansão.",
-   about:["A Olavo Lavanderia Express é uma lavanderia self-service com duas unidades em operação.","A marca também produziu um e-book gratuito sobre como abrir uma lavanderia self-service no Brasil, usado para formar uma lista de interessados."],
-   needs:["Parceiros para novas unidades","Padronização para um futuro modelo de franquia","Canais de captação de interessados"],
-   facts:[{k:"Unidades",v:"2 em operação"},{k:"Modelo",v:"Self-service"},{k:"Conteúdo",v:"E-book gratuito"}],
-   link:"", linkLabel:"Visitar site"},
-  {id:"torra", order:3, name:"Torra+", segment:"Café · locação de máquinas e vending", phase:"voo",
-   color:"#BA3A1B", logos:[{src:"logos/torra.png",bg:"#FFFFFF"}],
-   summary:"Marca de café que aluga máquinas para empresas e eventos e opera vending machines.",
-   why:"Ampliar a base de clientes de locação e abrir novos pontos de vending.",
-   about:["A Torra+ é uma marca de café com máquinas próprias alugadas a clientes, com instalação e retirada no local.","Também opera vending machines, com um ponto ativo e outros planejados."],
-   needs:["Novos clientes corporativos e eventos","Pontos para vending machines","Parcerias de distribuição"],
-   facts:[{k:"Base",v:"Santo Amaro, São Paulo"},{k:"Frentes",v:"Locação, eventos e vending"},{k:"Instagram",v:"@torra.mais"}],
-   link:"https://www.instagram.com/torra.mais/", linkLabel:"Ver Instagram"},
-  {id:"boole", order:4, name:"boole coffeeshop", segment:"Microcafeteria · franquia", phase:"impulso",
-   color:"#1E1E1E", logos:[{src:"logos/boole.png",bg:"#FFFEFA"}],
-   summary:"Microcafeteria de porta e janela to go, em estilo japandi, pensada para virar franquia.",
-   why:"Captar R$ 200 mil em cotas para abrir o piloto e validar a marca.",
-   about:["O boole coffeeshop (pronuncia-se “bule”) é uma microcafeteria compacta: uma porta, uma janela de atendimento to go e um balcão com banquetas, em estilo japandi.","O plano é abrir um piloto (microloja ou quiosque), validar a marca e transformá-la em franquia, com um formato extra de coffee station com máquinas automáticas."],
-   needs:["Cotistas para a captação de R$ 200 mil (20 cotas de R$ 10 mil)","Ponto para o piloto","Fornecedores para a marca própria de café"],
-   facts:[{k:"Captação",v:"R$ 200 mil · 20 cotas"},{k:"Formatos",v:"Microloja, quiosque, coffee station"},{k:"Franquia",v:"Royalties 5% + 1% marketing"}],
-   link:"", linkLabel:"Visitar site"},
-  {id:"fluxxu", order:5, name:"fluxxu", segment:"Software financeiro para autoatendimento", phase:"salto",
-   color:"#00BF63", logos:[{src:"logos/fluxxu.png",bg:"#00BF63"}],
-   summary:"Controle financeiro sem planilha para mercados autônomos, lavanderias, coffee stations e vending machines.",
-   why:"Levar o financeiro em ordem a mais negócios de autoatendimento e redes com várias unidades.",
-   about:["O fluxxu é um software de controle financeiro feito para negócios de autoatendimento, como mercados autônomos, lavanderias, estações de café e vending machines. Também atende lojas, restaurantes, franquias e empresas com várias unidades.","Registra receitas, despesas, boletos e notas, calcula taxas de cartão, fluxo de caixa e DRE, faz repasses a locais parceiros e conciliação bancária, e mostra o resultado por unidade ou por máquina. Slogan: “Seu financeiro em ordem. Sem planilha.”"],
-   needs:["Novos clientes de autoatendimento","Parcerias com fabricantes e operadores de máquinas","Redes e franquias com várias unidades"],
-   facts:[{k:"Preço",v:"R$ 50 por loja ativa/mês"},{k:"Teste",v:"30 dias grátis"},{k:"Visão",v:"Por unidade ou máquina"}],
-   link:"https://fluxxu.com.br", linkLabel:"Visitar fluxxu.com.br"},
-  {id:"movva", order:6, name:"MovvaCRM", segment:"CRM com IA para franquias", phase:"salto",
-   color:"#0B1A5C", logos:[{src:"logos/movva.png",bg:"#FFFFFF"}],
-   summary:"CRM com inteligência artificial para franqueadoras e redes de franquias.",
-   why:"Conquistar as primeiras redes de franquias e provar o ganho de eficiência na expansão.",
-   about:["O MovvaCRM é um CRM com inteligência artificial para franqueadoras e redes de franquias brasileiras, inclusive holdings com várias marcas. Slogan: “Menos gente. Mais rede.”","Prospecta e qualifica candidatos com IA 24 horas por dia, envia a Circular de Oferta de Franquia com rastreamento e controle do prazo legal, e acompanha cada unidade da rede, da implantação aos alertas de lojas em risco."],
-   needs:["Franqueadoras para os primeiros contratos","Parcerias com consultorias de franchising","Integrações com sistemas das redes"],
-   facts:[{k:"Público",v:"Franqueadoras e redes"},{k:"Planos",v:"R$ 297 a R$ 1.997 por unidade/mês"}],
-   link:"https://movvacrm.com.br", linkLabel:"Visitar movvacrm.com.br"},
-  {id:"neo", order:7, name:"NEO Assessoria Esportiva", segment:"Gestão esportiva, saúde e bem-estar", phase:"salto",
-   color:"#0E7A4A", logos:[{src:"logos/neo.png",bg:"#FFFFFF"}],
-   summary:"Cria e opera programas esportivos em condomínios, empresas, escolas e academias.",
-   why:"Levar o esporte para mais espaços e escalar a operação com a plataforma NEO Club.",
-   about:["A NEO Assessoria Esportiva cria e opera programas esportivos para os lugares onde as pessoas moram, trabalham, estudam ou treinam. Slogan: “Esporte mais perto das pessoas.”","Faz o diagnóstico do espaço e do público, planeja as atividades, implanta a operação, coordena os profissionais e acompanha presença, adesão e satisfação. O aplicativo NEO Club reúne agenda, inscrições, presença e indicadores para gestores."],
-   needs:["Novos condomínios, empresas e escolas","Profissionais de educação física parceiros","Patrocinadores para programas"],
-   facts:[{k:"Público",v:"Condomínios, empresas, escolas"},{k:"Plataforma",v:"App NEO Club"},{k:"Serviço",v:"Da implantação aos indicadores"}],
-   link:"https://neoesportiva.com.br", linkLabel:"Visitar neoesportiva.com.br"},
-  {"id": "hubhunter", "order": 8, "name": "HubHunter", "segment": "Prospecção outbound com IA", "phase": "salto", "color": "#F27A1A", "logos": [{"src": "logos/hubhunter.png", "bg": "#0E1119"}], "summary": "Plataforma que encontra, qualifica e aborda leads por e-mail, WhatsApp e LinkedIn e entrega a reunião agendada.", "why": "Levar a prospecção com IA para mais times comerciais e lançar a Iris, a IA de reuniões.", "about": ["O HubHunter é uma plataforma de prospecção outbound com IA: encontra empresas e decisores, enriquece os dados, conduz a abordagem por e-mail, WhatsApp e LinkedIn e entrega a reunião marcada para o time comercial fechar. Não é um CRM: cuida do topo e do meio do funil e alimenta o CRM que a empresa já usa.", "A Iris, sua IA de Meeting Intelligence, transforma a transcrição da reunião em proposta, roteiro e próximo passo, e devolve o aprendizado para a prospecção."], "needs": ["Times comerciais B2B para demonstrações", "Redes de franquia recrutando franqueados", "Integrações com Pipedrive, HubSpot e RD Station"], "facts": [{"k": "Canais", "v": "E-mail, WhatsApp e LinkedIn"}, {"k": "Públicos", "v": "Empresas 100+, condomínios, PMEs, franqueados"}, {"k": "IA", "v": "Iris, Meeting Intelligence"}], "link": "https://hubhunter.com.br", "linkLabel": "Visitar hubhunter.com.br"},
-  {"id": "habla", "order": 9, "name": "habla", "segment": "Mídia indoor para negócios locais", "phase": "impulso", "color": "#F97520", "logos": [{"src": "logos/habla.png", "bg": "#FFFFFF"}], "summary": "Telas de mídia indoor em condomínios e comércios para pequenos negócios anunciarem perto de quem compra deles.", "why": "Ampliar a rede de telas com novos parceiros e levar anúncios acessíveis a mais negócios de bairro.", "about": ["A habla é uma empresa de mídia indoor (MOOH) com o propósito de democratizar o acesso à comunicação em telas para pequenos negócios, empreendedores e comércios locais. Lema: “Se for pra aparecer, que seja pra dizer algo.”", "Para parceiros, a habla instala em comodato uma TV ou totem smart com Android, sem custo de setup. O parceiro organiza a programação em três playlists (negócios locais, parceiro e habla), vende anúncios para o comércio da região e fica com 100% da receita, gerenciando tudo por aplicativo.", "Para anunciantes, o Plano Visibilidade Local exibe vídeos de 15 segundos em condomínios e minimercados de autoatendimento, uma vez por hora, 24 horas por dia, com exclusividade por nicho e 7 dias grátis para testar."], "needs": ["Condomínios e comércios para receber telas", "Parceiros para vender anúncios na sua região", "Anunciantes locais: clínicas, salões, pet shops, restaurantes"], "facts": [{"k": "Anúncio", "v": "R$ 150/mês ou R$ 750/semestre"}, {"k": "Exibições", "v": "720+ por mês"}, {"k": "Parceiro", "v": "Tela em comodato, 100% da receita"}, {"k": "Base", "v": "Santo Amaro, São Paulo"}], "link": "", "linkLabel": "Visitar site"},
-  {"id": "minimart24hrs", "order": 10, "name": "Minimart 24hrs", "segment": "Minimercado autônomo · franquia", "phase": "", "color": "#38B6FF", "logos": [{"src": "logos/minimart.png", "bg": "#38B6FF"}], "summary": "Rede de minimercados de autoatendimento 24 horas, com mais de 130 lojas e 80 franqueados.", "why": "Empresa mentorada pela TRAMPOOLIM: sustentar o ritmo de expansão da rede e o suporte aos franqueados.", "about": ["A Minimart 24hrs opera minimercados de autoatendimento que funcionam 24 horas por dia, levando conveniência para dentro de condomínios e espaços onde as pessoas moram e trabalham.", "É uma rede de franquias com mais de 130 lojas e 80 franqueados."], "needs": ["Condomínios para novos pontos", "Candidatos a franqueado", "Fornecedores e parceiros de abastecimento"], "facts": [{"k": "Rede", "v": "130+ lojas"}, {"k": "Franqueados", "v": "80+"}, {"k": "Funcionamento", "v": "24 horas, autoatendimento"}, {"k": "Instagram", "v": "@minimart24hrs"}], "link": "https://www.minimart24hrs.com.br", "linkLabel": "Visitar minimart24hrs.com.br", "mentoria": "em", "mentoriaNota": "Empresa mentorada pela TRAMPOOLIM. Instagram: @minimart24hrs"},
-  {"id": "blu", "order": 11, "name": "blu", "segment": "Chatbots e agentes de IA para atendimento", "phase": "salto", "color": "#2D2369", "logos": [{"src": "logos/blu.png", "bg": "#FFFFFF"}], "summary": "Chatbots, agentes de IA e CRM que centralizam o atendimento de WhatsApp, Instagram e Messenger em um só painel.", "why": "Levar atendimento automatizado com IA a mais empresas e equipes comerciais.", "about": ["A blu é uma ferramenta de chatbots e agentes de inteligência artificial para atendimento ao cliente. Assinatura: chatbot, agent, CRM.", "Centraliza as mensagens do WhatsApp oficial, Instagram e Messenger em um único painel para equipes, com filas de espera, transbordo de conversas entre atendentes, funis de vendas e CRM visual.", "Os chatbots e agentes de IA fazem a pré-qualificação de leads e o suporte automatizado, liberando a equipe para as conversas que mais importam."], "needs": ["Empresas com alto volume de atendimento", "Equipes comerciais que vendem pelo WhatsApp", "Parceiros e revendedores"], "facts": [{"k": "Canais", "v": "WhatsApp oficial, Instagram, Messenger"}, {"k": "Atendimento", "v": "Filas, transbordo, funis e CRM"}, {"k": "IA", "v": "Chatbots e agentes"}], "link": "", "linkLabel": "Visitar site", "mentoria": "", "mentoriaNota": ""}
-];
+const DEFAULTS = [{"id":"yoshizane-kobo","order":1,"name":"yoshizane + kobō","segment":"Arquitetura e estúdio criativo","phase":"salto","color":"#FF3333","logos":[{"src":"logos/yoshizane.png","bg":"#FFFFFF"},{"src":"logos/kobo.png","bg":"#FF3131"}],"summary":"A yoshizane estuda e planeja espaços comerciais; a kobō, seu estúdio criativo, cria os projetos e o design.","why":"Ser o braço de arquitetura da rede: levar o espaço físico das empresas da TRAMPOOLIM do estudo à obra.","about":["yoshizane 吉眞: arquitetura orientada a produtividade, performance e escala. Estuda o negócio para que o espaço físico trabalhe a favor do faturamento.","kobō 工房: o estúdio criativo da yoshizane. Em japonês, kobō significa oficina, ateliê, o lugar onde as ideias ganham forma. Cuida da criação de projetos e design, com trabalhos em cafés, restaurantes, Airbnb, conveniências, lavanderias e contêineres."],"needs":["Marcas em expansão que precisam padronizar lojas","Startups que vão abrir o primeiro ponto físico","Parcerias com franqueadoras"],"facts":[{"k":"yoshizane","v":"Estudo e estratégia"},{"k":"kobō","v":"Criação e design"},{"k":"Local","v":"São Paulo, SP"}],"link":"https://yoshizane.arq.br","linkLabel":"Visitar yoshizane.arq.br"},
+  {"id":"olavo","order":2,"name":"Olavo Lavanderia Express","segment":"Lavanderia self-service","phase":"voo","color":"#145DA0","logos":[{"src":"logos/olavo.png","bg":"#145DA0"}],"summary":"Rede de lavanderias self-service com duas unidades em operação.","why":"Estruturar o modelo para replicar novas unidades e preparar a expansão.","about":["A Olavo Lavanderia Express é uma lavanderia self-service com duas unidades em operação.","A marca produziu um e-book gratuito, o guia completo “Lavanderias de autoatendimento: do planejamento à expansão”, com mercado, investimento, operação, marketing, finanças e tendências do setor. Ele está disponível para download aqui na TRAMPOOLIM."],"needs":["Parceiros para novas unidades","Padronização para um futuro modelo de franquia","Canais de captação de interessados"],"facts":[{"k":"Unidades","v":"2 em operação"},{"k":"Modelo","v":"Self-service"},{"k":"Conteúdo","v":"E-book gratuito para download"},{"k":"Instagram","v":"@olavolavanderia"}],"link":"https://www.instagram.com/olavolavanderia/","linkLabel":"Ver Instagram @olavolavanderia","contato":"contato@trampoolim.com","ebook":"docs/ebook-olavo-lavanderia.pdf"},
+  {"id":"torra","order":3,"name":"Torra+","segment":"Café · coffee station para eventos, locação e vending","phase":"voo","color":"#BA3A1B","logos":[{"src":"logos/torra.png","bg":"#FFFFFF"}],"summary":"Aluga coffee station completa para eventos comemorativos e corporativos, além de máquinas de café para empresas e vending machines.","why":"Ampliar a base de clientes de locação e abrir novos pontos de vending.","about":["A Torra+ aluga coffee station completa para eventos comemorativos ou corporativos, com instalação e retirada no local.","Também aluga máquinas de café para empresas e opera vending machines, com um ponto ativo e outros planejados."],"needs":["Eventos comemorativos e corporativos","Novos clientes para locação de máquinas","Pontos para vending machines"],"facts":[{"k":"Eventos","v":"Coffee station completa"},{"k":"Base","v":"Santo Amaro, São Paulo"},{"k":"Instagram","v":"@torra.mais"}],"link":"https://www.instagram.com/torra.mais/","linkLabel":"Ver Instagram","contato":"contato@trampoolim.com"},
+  {"id":"boole","order":4,"name":"boole coffeeshop","segment":"Microcafeteria · franquia","phase":"impulso","color":"#1E1E1E","logos":[{"src":"logos/boole.png","bg":"#FFFEFA"}],"summary":"Microcafeteria de porta e janela to go, em estilo japandi, pensada para virar franquia.","why":"Captar R$ 200 mil em cotas para abrir o piloto e validar a marca.","about":["O boole coffeeshop (pronuncia-se “bule”) é uma microcafeteria compacta: uma porta, uma janela de atendimento to go e um balcão com banquetas, em estilo japandi.","O plano é abrir um piloto (microloja ou quiosque), validar a marca e transformá-la em franquia, com um formato extra de coffee station com máquinas automáticas."],"needs":["Cotistas para a captação de R$ 200 mil (20 cotas de R$ 10 mil)","Ponto para o piloto","Fornecedores para a marca própria de café"],"facts":[{"k":"Captação","v":"R$ 200 mil · 20 cotas"},{"k":"Formatos","v":"Microloja, quiosque, coffee station"},{"k":"Franquia","v":"Royalties 5% + 1% marketing"}],"link":"","linkLabel":"Visitar site","contato":"contato@trampoolim.com"},
+  {"id":"fluxxu","order":5,"name":"fluxxu","segment":"Software financeiro para autoatendimento","phase":"salto","color":"#00BF63","logos":[{"src":"logos/fluxxu.png","bg":"#00BF63"}],"summary":"Controle financeiro sem planilha para mercados autônomos, lavanderias, coffee stations e vending machines.","why":"Levar o financeiro em ordem a mais negócios de autoatendimento e redes com várias unidades.","about":["O fluxxu é um software de controle financeiro feito para negócios de autoatendimento, como mercados autônomos, lavanderias, estações de café e vending machines. Também atende lojas, restaurantes, franquias e empresas com várias unidades.","Registra receitas, despesas, boletos e notas, calcula taxas de cartão, fluxo de caixa e DRE, faz repasses a locais parceiros e conciliação bancária, e mostra o resultado por unidade ou por máquina. Slogan: “Seu financeiro em ordem. Sem planilha.”","Para quem quer organizar as finanças pessoais, o fluxxu pessoal é gratuito."],"needs":["Novos clientes de autoatendimento","Parcerias com fabricantes e operadores de máquinas","Redes e franquias com várias unidades"],"facts":[{"k":"Preço","v":"R$ 50 por loja ativa/mês"},{"k":"Teste","v":"30 dias grátis"},{"k":"fluxxu pessoal","v":"Gratuito"},{"k":"Visão","v":"Por unidade ou máquina"}],"link":"https://fluxxu.com.br","linkLabel":"Visitar fluxxu.com.br"},
+  {"id":"movva","order":6,"name":"MovvaCRM","segment":"CRM com IA para franquias","phase":"salto","color":"#0B1A5C","logos":[{"src":"logos/movva.png","bg":"#FFFFFF"}],"summary":"CRM com inteligência artificial para franqueadoras e redes de franquias.","why":"Conquistar as primeiras redes de franquias e provar o ganho de eficiência na expansão.","about":["O MovvaCRM é um CRM com inteligência artificial para franqueadoras e redes de franquias brasileiras, inclusive holdings com várias marcas. Slogan: “Menos gente. Mais rede.”","Prospecta e qualifica candidatos com IA 24 horas por dia, envia a Circular de Oferta de Franquia com rastreamento e controle do prazo legal, e acompanha cada unidade da rede, da implantação aos alertas de lojas em risco."],"needs":["Franqueadoras para os primeiros contratos","Parcerias com consultorias de franchising","Integrações com sistemas das redes"],"facts":[{"k":"Público","v":"Franqueadoras e redes"},{"k":"Planos","v":"R$ 297 a R$ 1.997 por unidade/mês"}],"link":"https://movvacrm.com.br","linkLabel":"Visitar movvacrm.com.br"},
+  {"id":"neo","order":7,"name":"NEO Assessoria Esportiva","segment":"Gestão esportiva, saúde e bem-estar","phase":"salto","color":"#0E7A4A","logos":[{"src":"logos/neo.png","bg":"#FFFFFF"}],"summary":"Cria e opera programas esportivos em condomínios, empresas, escolas e academias.","why":"Levar o esporte para mais espaços e escalar a operação com a plataforma NEO Club.","about":["A NEO Assessoria Esportiva cria e opera programas esportivos para os lugares onde as pessoas moram, trabalham, estudam ou treinam. Slogan: “Esporte mais perto das pessoas.”","Faz o diagnóstico do espaço e do público, planeja as atividades, implanta a operação, coordena os profissionais e acompanha presença, adesão e satisfação. O aplicativo NEO Club reúne agenda, inscrições, presença e indicadores para gestores."],"needs":["Novos condomínios, empresas e escolas","Profissionais de educação física parceiros","Patrocinadores para programas"],"facts":[{"k":"Público","v":"Condomínios, empresas, escolas"},{"k":"Plataforma","v":"App NEO Club"},{"k":"Serviço","v":"Da implantação aos indicadores"}],"link":"https://neoesportiva.com.br","linkLabel":"Visitar neoesportiva.com.br"},
+  {"id":"hubhunter","order":8,"name":"HubHunter","segment":"Prospecção outbound com IA","phase":"salto","color":"#F27A1A","logos":[{"src":"logos/hubhunter.png","bg":"#0E1119"}],"summary":"Plataforma que encontra, qualifica e aborda leads por e-mail, WhatsApp e LinkedIn e entrega a reunião agendada.","why":"Levar a prospecção com IA para mais times comerciais e lançar a Iris, a IA de reuniões.","about":["O HubHunter é uma plataforma de prospecção outbound com IA: encontra empresas e decisores, enriquece os dados, conduz a abordagem por e-mail, WhatsApp e LinkedIn e entrega a reunião marcada para o time comercial fechar. Não é um CRM: cuida do topo e do meio do funil e alimenta o CRM que a empresa já usa.","A Iris, sua IA de Meeting Intelligence, transforma a transcrição da reunião em proposta, roteiro e próximo passo, e devolve o aprendizado para a prospecção."],"needs":["Times comerciais B2B para demonstrações","Redes de franquia recrutando franqueados","Integrações com Pipedrive, HubSpot e RD Station"],"facts":[{"k":"Canais","v":"E-mail, WhatsApp e LinkedIn"},{"k":"Públicos","v":"Empresas 100+, condomínios, PMEs, franqueados"},{"k":"IA","v":"Iris, Meeting Intelligence"}],"link":"https://hubhunter.com.br","linkLabel":"Visitar hubhunter.com.br","contato":"contato@trampoolim.com"},
+  {"id":"habla","order":9,"name":"habla","segment":"Mídia indoor para negócios locais","phase":"impulso","color":"#F97520","logos":[{"src":"logos/habla.png","bg":"#FFFFFF"}],"summary":"Telas de mídia indoor em condomínios e comércios para pequenos negócios anunciarem perto de quem compra deles.","why":"Ampliar a rede de telas com novos parceiros e levar anúncios acessíveis a mais negócios de bairro.","about":["A habla é uma empresa de mídia indoor (MOOH) com o propósito de democratizar o acesso à comunicação em telas para pequenos negócios, empreendedores e comércios locais. Lema: “Se for pra aparecer, que seja pra dizer algo.”","Para parceiros, a habla instala em comodato uma TV ou totem smart com Android, sem custo de setup. O parceiro organiza a programação em três playlists (negócios locais, parceiro e habla), vende anúncios para o comércio da região e fica com 100% da receita, gerenciando tudo por aplicativo.","Para anunciantes, o Plano Visibilidade Local exibe vídeos de 15 segundos em condomínios e minimercados de autoatendimento, uma vez por hora, 24 horas por dia, com exclusividade por nicho e 7 dias grátis para testar."],"needs":["Condomínios e comércios para receber telas","Parceiros para vender anúncios na sua região","Anunciantes locais: clínicas, salões, pet shops, restaurantes"],"facts":[{"k":"Anúncio","v":"R$ 150/mês ou R$ 750/semestre"},{"k":"Exibições","v":"720+ por mês"},{"k":"Parceiro","v":"Tela em comodato, 100% da receita"},{"k":"Base","v":"Santo Amaro, São Paulo"}],"link":"","linkLabel":"Visitar site","contato":"contato@trampoolim.com"},
+  {"id":"minimart24hrs","order":10,"name":"Minimart 24hrs","segment":"Minimercado autônomo · franquia","phase":"","color":"#38B6FF","logos":[{"src":"logos/minimart.png","bg":"#38B6FF"}],"summary":"Rede de minimercados de autoatendimento 24 horas, fundada em 2021, com mais de 130 lojas e 80 franqueados em 8 estados.","why":"Empresa mentorada pela TRAMPOOLIM: sustentar o ritmo de expansão da rede e o suporte aos franqueados.","about":["Fundada em 2021, a Minimart 24hrs opera minimercados de autoatendimento que funcionam 24 horas por dia, levando conveniência para dentro de condomínios e espaços onde as pessoas moram e trabalham.","É uma rede de franquias com mais de 130 lojas e 80 franqueados, com operação em São Paulo, Rio de Janeiro, Bahia, Rio Grande do Sul, Distrito Federal, Minas Gerais, Mato Grosso e Paraná, fortalecendo a expansão nacional."],"needs":["Condomínios para novos pontos","Candidatos a franqueado","Fornecedores e parceiros de abastecimento"],"facts":[{"k":"Fundação","v":"2021"},{"k":"Rede","v":"130+ lojas"},{"k":"Franqueados","v":"80+"},{"k":"Presença","v":"SP, RJ, BA, RS, DF, MG, MT e PR"},{"k":"Instagram","v":"@minimart24hrs"}],"link":"https://www.minimart24hrs.com.br","linkLabel":"Visitar minimart24hrs.com.br","mentoria":"em","mentoriaNota":"Empresa mentorada pela TRAMPOOLIM. Instagram: @minimart24hrs"},
+  {"id":"blu","order":11,"name":"blu","segment":"Chatbots e agentes de IA para atendimento","phase":"salto","color":"#1F2A44","logos":[{"src":"logos/blu.png","bg":"#1C2232"}],"summary":"Chatbots, agentes de IA e CRM que centralizam o atendimento de WhatsApp, Instagram e Messenger em um só painel.","why":"Levar atendimento automatizado com IA a mais empresas e equipes comerciais.","about":["A blu é uma ferramenta de chatbots e agentes de inteligência artificial para atendimento ao cliente. Assinatura: chatbot, agent, CRM.","Centraliza as mensagens do WhatsApp oficial, Instagram e Messenger em um único painel para equipes, com filas de espera, transbordo de conversas entre atendentes, funis de vendas e CRM visual.","Os chatbots e agentes de IA fazem a pré-qualificação de leads e o suporte automatizado, liberando a equipe para as conversas que mais importam."],"needs":["Empresas com alto volume de atendimento","Equipes comerciais que vendem pelo WhatsApp","Parceiros e revendedores"],"facts":[{"k":"Canais","v":"WhatsApp oficial, Instagram, Messenger"},{"k":"Atendimento","v":"Filas, transbordo, funis e CRM"},{"k":"IA","v":"Chatbots e agentes"}],"link":"","linkLabel":"Visitar site","mentoria":"","mentoriaNota":"","contato":"contato@trampoolim.com"}];
 
 let COMPANIES = DEFAULTS.map(c=>structuredClone(c));
 let dbHasData = false;
@@ -557,7 +513,7 @@ function renderGrid(){
         <div class="why"><b>Por que está aqui</b>${esc(c.why)}</div>
         ${mentorsOf(c.id).length?`<div class="mentor-line">Mentoria com <b>${mentorsOf(c.id).map(m=>esc(m.nome)).join(", ")}</b></div>`:""}
         ${c.phase?track(c):""}
-        <div class="co-foot"><span class="pills">${c.phase?pill(phaseOf(c.phase)):""}${mpill(c)}</span><a class="more" href="#${esc(c.id)}">Ver empresa →</a></div>
+        <div class="co-foot"><span class="pills">${c.phase?pill(phaseOf(c.phase)):""}${mpill(c)}${c.ebook?`<span class="mpill em">E-book grátis</span>`:""}</span><a class="more" href="#${esc(c.id)}">Ver empresa →</a></div>
       </div></article>`);
   if(!list.length) cards.push(`<p class="empty">Nenhuma empresa nesta categoria ainda.</p>`);
   cards.push(masterOn
@@ -586,6 +542,17 @@ function renderDetail(c){
     <div class="d-grid">
       <div>
         <div class="d-block"><h2>O que faz</h2>${(c.about||[]).map(t=>`<p>${esc(t)}</p>`).join("")}</div>
+        ${c.ebook?`<div class="ebook"><img src="logos/ebook-olavo-capa.jpg" alt="Capa do e-book">
+          <div><span class="pill" style="background:var(--accent)">E-book gratuito</span>
+          <h2 style="margin-top:10px">Lavanderias de autoatendimento: do planejamento à expansão</h2>
+          <p class="note" style="margin:0">Guia completo com mercado, investimento, operação, marketing, finanças e tendências. Preencha seus dados para baixar.</p>
+          <form id="ebook-form" data-file="${esc(c.ebook)}" novalidate>
+            <label class="f">Nome completo<input id="eb-nome" autocomplete="name" required></label>
+            <div class="row2"><label class="f">WhatsApp<input id="eb-whats" type="tel" autocomplete="tel" placeholder="(11) 90000-0000" required></label>
+            <label class="f">E-mail<input id="eb-email" type="email" autocomplete="email" placeholder="voce@email.com" required></label></div>
+            <button class="btn solid" type="submit" id="eb-btn" style="justify-self:start">Baixar e-book (PDF)</button>
+            <div class="msg" id="eb-msg" hidden></div>
+          </form></div></div>`:""}
         <div class="d-block"><h2>Por que está na TRAMPOOLIM</h2><p>${esc(c.why)}</p></div>
         <div class="d-block"><h2>O que busca agora</h2><ul>${(c.needs||[]).map(t=>`<li>${esc(t)}</li>`).join("")}</ul></div>
       </div>
@@ -699,7 +666,7 @@ function openEditor(id, pre){
       <label class="f">Fase<select id="e-phase"><option value="" ${!c.phase?"selected":""}>Sem fase (empresa mentorada)</option>${PHASES.map(p=>`<option value="${p.id}" ${p.id===c.phase?"selected":""}>${p.name} · ${p.classic}</option>`).join("")}</select></label>
       <label class="f">Cor da marca<input id="e-color" type="color" value="${safeColor(c.color)}" style="height:46px;padding:4px"></label>
     </div>
-    <div class="f" style="display:flex;flex-direction:column;gap:8px;font-weight:800;font-size:14px">Logos <small style="font-weight:500;color:var(--muted)">Até 2 imagens (ex.: yoshizane + Kobō). PNG ou JPG; a imagem é reduzida automaticamente.</small>
+    <div class="f" style="display:flex;flex-direction:column;gap:8px;font-weight:800;font-size:14px">Logos <small style="font-weight:500;color:var(--muted)">Até 2 imagens (ex.: yoshizane + kobō). PNG ou JPG; a imagem é reduzida automaticamente.</small>
       <div class="logo-prev" id="e-logos"></div>
       <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
         <label class="btn sm" for="e-file" style="cursor:pointer">Adicionar logo</label><input id="e-file" type="file" accept="image/png,image/jpeg,image/webp" hidden>
@@ -795,7 +762,7 @@ $("#editor").addEventListener("submit", async e=>{
     needs: $("#e-needs").value.split("\n").map(s=>s.trim()).filter(Boolean),
     facts: $("#e-facts").value.split("\n").map(s=>s.trim()).filter(Boolean).map(l=>{const i=l.indexOf(":");return i>0?{k:l.slice(0,i).trim(),v:l.slice(i+1).trim()}:{k:l,v:""};}),
     link, linkLabel: $("#e-linklabel").value.trim() || "Visitar site",
-    mentoria: $("#e-mentoria").value, mentoriaNota: $("#e-mnota").value.trim(), contato: $("#e-contato").value.trim()
+    mentoria: $("#e-mentoria").value, mentoriaNota: $("#e-mnota").value.trim(), contato: $("#e-contato").value.trim(), ebook: c.ebook||""
   };
   $("#e-save").disabled = true; $("#e-save").textContent = "Salvando…";
   try{
@@ -833,11 +800,38 @@ $("#apply").addEventListener("submit", async e=>{
   const data = {nome, resp:$("#f-resp").value.trim(), email, fase:$("#f-fase").value, mentoria:$("#f-ment").value, why:$("#f-why").value.trim(), quando:new Date().toISOString()};
   const r = await sendOwn("inscricoes", data);
   if(r===true){ ok.className="msg full"; ok.textContent=`Inscrição de ${nome} enviada. A equipe TRAMPOOLIM vai entrar em contato pelo e-mail informado.`; e.target.reset(); }
-  else { ok.className="msg err full"; ok.innerHTML = `Não foi possível enviar por aqui${r==="signin"?" (é preciso estar logado no claude.ai)":""}. <button type="button" class="btn sm" style="background:#fff;color:#B42318;border-color:#fff;margin-left:6px" id="copy-insc">Copiar dados</button> e envie para a equipe TRAMPOOLIM.`; $("#copy-insc").onclick=()=>copyText(Object.entries(data).map(([k,v])=>k+": "+v).join("\n")); }
+  else { ok.className="msg err full"; ok.innerHTML = `Não foi possível enviar por aqui${r==="signin"?" (é preciso estar logado no claude.ai)":""}. <button type="button" class="btn sm" style="background:#fff;color:#B42318;border-color:#fff;margin-left:6px" id="copy-insc">Copiar dados</button> e envie para contato@trampoolim.com.`; $("#copy-insc").onclick=()=>copyText(Object.entries(data).map(([k,v])=>k+": "+v).join("\n")); }
+});
+
+/* e-book: captura de lead + download */
+document.addEventListener("submit", async e=>{
+  if(e.target.id!=="ebook-form") return;
+  e.preventDefault();
+  const f=e.target, msg=$("#eb-msg"), nome=$("#eb-nome").value.trim(), whats=$("#eb-whats").value.trim(), email=$("#eb-email").value.trim();
+  msg.hidden=false;
+  if(nome.split(/\s+/).length<2 || whats.replace(/\D/g,"").length<10 || !/^\S+@\S+\.\S+$/.test(email)){
+    msg.className="msg err"; msg.textContent="Preencha o nome completo, um WhatsApp com DDD e um e-mail válido."; return;
+  }
+  $("#eb-btn").disabled=true; msg.className="msg"; msg.textContent="Preparando o download…";
+  const file=f.dataset.file;
+  try{ await sendOwn("leads", {nome, whats, email, material:file, quando:new Date().toISOString()}); }catch(_){}
+  let done=false;
+  try{
+    const dl = await window.claude?.use?.("downloads");
+    if(dl){
+      const blob = await (await fetch(file)).blob();
+      await dl.save({filename:"E-book Olavo Lavanderia Express.pdf", data:blob});
+      done=true;
+    }
+  }catch(err){ if(err && err.code==="declined"){ msg.textContent="Download cancelado. Clique em Baixar e-book para tentar de novo."; $("#eb-btn").disabled=false; return; } }
+  if(!done){ const a=document.createElement("a"); a.href=file; a.download="E-book Olavo Lavanderia Express.pdf"; a.target="_blank"; a.rel="noopener"; document.body.appendChild(a); a.click(); a.remove(); }
+  msg.textContent=`Obrigado, ${nome.split(" ")[0]}! Seu e-book está sendo baixado. Se não começar, use este link: `;
+  const l=document.createElement("a"); l.href=file; l.target="_blank"; l.rel="noopener"; l.textContent="abrir o PDF"; l.style.color="inherit"; msg.appendChild(l);
+  $("#eb-btn").disabled=false;
 });
 
 /* mentores */
-let MENTORS = [], CANDS = [], INSCS = [], inboxOn = false, draftPhoto = "";
+let MENTORS = [], CANDS = [], INSCS = [], LEADS = [], inboxOn = false, draftPhoto = "";
 $("#m-fases").innerHTML = PHASES.map(p=>`<label><input type="checkbox" value="${p.id}"> ${p.name}</label>`).join("");
 function normMentor(d){
   return {id:String(d.id||""), order:Number(d.order)||99, nome:String(d.nome||""), area:String(d.area||""), bio:String(d.bio||""),
@@ -870,14 +864,16 @@ function renderInbox(){
       <p class="note">${esc(c.disp)} · ${esc(c.formato)}${(c.fases||[]).length?" · fases: "+c.fases.map(f=>phaseOf(f).name).join(", "):""}</p>
     </div><div class="acts"><button class="btn sm solid" type="button" data-approve="${esc(c.id)}">Aprovar</button><button class="btn sm danger" type="button" data-cdel="candidaturas/${esc(c.id)}">Excluir</button></div></div>`).join("")
     : `<p class="note">Nenhuma candidatura nova.</p>`;
+  const leadsHTML = `<h3 style="font-size:22px;margin-top:12px">Downloads do e-book (${LEADS.length})</h3>` + (LEADS.length ? LEADS.map(l=>`<div class="item"><div><b>${esc(l.nome)}</b><p>${esc(l.whats)} · ${esc(l.email)}</p><p class="note">${esc(String(l.quando||"").slice(0,10))}</p></div><div class="acts"><button class="btn sm danger" type="button" data-cdel="leads/${esc(l.id)}">Excluir</button></div></div>`).join("") : `<p class="note">Nenhum download ainda.</p>`);
   $("#insc-inbox").innerHTML = `<h3 style="font-size:22px">Inscrições recebidas</h3>` + (INSCS.length ? INSCS.map(i=>`<div class="item"><div>
       <b>${esc(i.nome)}</b> · ${esc(phaseOf(i.fase).name)}${i.mentoria==="busca"?" · quer mentoria":i.mentoria==="em"?" · em mentoria":""}
       <p>${esc(i.resp)} · ${esc(i.email)}</p><p>${esc(i.why)}</p>
-    </div><div class="acts"><button class="btn sm solid" type="button" data-icreate="${esc(i.id)}">Criar card</button><button class="btn sm danger" type="button" data-cdel="inscricoes/${esc(i.id)}">Excluir</button></div></div>`).join("") : `<p class="note">Nenhuma inscrição nova.</p>`);
+    </div><div class="acts"><button class="btn sm solid" type="button" data-icreate="${esc(i.id)}">Criar card</button><button class="btn sm danger" type="button" data-cdel="inscricoes/${esc(i.id)}">Excluir</button></div></div>`).join("") : `<p class="note">Nenhuma inscrição nova.</p>`) + leadsHTML;
 }
 function watchInbox(){
   if(inboxOn || !db) return; inboxOn = true;
   db.collection("candidaturas").onSnapshot(s=>{ CANDS = s.docs.filter(d=>d.exists).map(d=>({...d.data(), id:d.id})); renderInbox(); }, ()=>{});
+  db.collection("leads").onSnapshot(s=>{ LEADS = s.docs.filter(d=>d.exists).map(d=>({...d.data(), id:d.id})).sort((a,b)=>String(b.quando).localeCompare(String(a.quando))); renderInbox(); }, ()=>{});
   db.collection("inscricoes").onSnapshot(s=>{ INSCS = s.docs.filter(d=>d.exists).map(d=>({...d.data(), id:d.id})); renderInbox(); }, ()=>{});
 }
 async function delDoc(path, btn){
@@ -904,7 +900,7 @@ $("#mform").addEventListener("submit", async e=>{
   const r = await sendOwn("candidaturas", data);
   $("#m-send").disabled = false;
   if(r===true){ ok.className="msg full"; ok.textContent=`Obrigado, ${data.nome.split(" ")[0]}! Seu cadastro foi enviado. A equipe TRAMPOOLIM vai analisar e entrar em contato.`; e.target.reset(); }
-  else { ok.className="msg err full"; ok.innerHTML=`Não foi possível enviar por aqui${r==="signin"?" (é preciso estar logado no claude.ai)":""}. <button type="button" class="btn sm" style="background:#fff;color:#B42318;border-color:#fff;margin-left:6px" id="copy-m">Copiar dados</button> e envie para a equipe TRAMPOOLIM.`; $("#copy-m").onclick=()=>copyText(Object.entries(data).map(([k,v])=>k+": "+(Array.isArray(v)?v.join(", "):v)).join("\n")); }
+  else { ok.className="msg err full"; ok.innerHTML=`Não foi possível enviar por aqui${r==="signin"?" (é preciso estar logado no claude.ai)":""}. <button type="button" class="btn sm" style="background:#fff;color:#B42318;border-color:#fff;margin-left:6px" id="copy-m">Copiar dados</button> e envie para contato@trampoolim.com.`; $("#copy-m").onclick=()=>copyText(Object.entries(data).map(([k,v])=>k+": "+(Array.isArray(v)?v.join(", "):v)).join("\n")); }
 });
 
 let mEditing = null;
@@ -965,7 +961,7 @@ function normalize(d){
     about:Array.isArray(d.about)?d.about.map(String):[], needs:Array.isArray(d.needs)?d.needs.map(String):[],
     facts:Array.isArray(d.facts)?d.facts.map(f=>({k:String(f&&f.k||""),v:String(f&&f.v||"")})):[],
     link:safeUrl(d.link), linkLabel:String(d.linkLabel||"Visitar site"),
-    mentoria:MENTOR.some(m=>m.id===d.mentoria)?d.mentoria:"", mentoriaNota:String(d.mentoriaNota||""), contato:String(d.contato||"")
+    mentoria:MENTOR.some(m=>m.id===d.mentoria)?d.mentoria:"", mentoriaNota:String(d.mentoriaNota||""), contato:String(d.contato||""), ebook:/^docs\/[a-z0-9-]+\.pdf$/.test(d.ebook||"")?d.ebook:""
   };
 }
 (async ()=>{
