@@ -354,12 +354,14 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
       </div>
       <div class="inbox" id="insc-inbox" hidden style="margin-bottom:24px"></div>
       <form class="apply" id="apply" novalidate>
-        <label class="f">Nome da empresa ou projeto<input id="f-nome" required placeholder="Ex.: Minha Startup"></label>
-        <label class="f">Seu nome<input id="f-resp" required placeholder="Quem responde pelo projeto"></label>
-        <label class="f">E-mail<input id="f-email" type="email" required placeholder="voce@empresa.com.br"></label>
-        <label class="f">Fase atual<select id="f-fase"></select></label>
-        <label class="f full">Mentoria<select id="f-ment"><option value="">Não preciso de mentoria agora</option><option value="busca">Quero receber mentoria</option><option value="em">Já estou em mentoria e quero entrar na vitrine</option></select></label>
-        <label class="f full">Por que quer entrar na TRAMPOOLIM?<textarea id="f-why" rows="4" placeholder="O que você busca: investimento, sócios, parceiros, mentoria, clientes…"></textarea></label>
+        <label class="f">Nome da empresa ou projeto<input id="f-nome" name="Empresa ou projeto" required placeholder="Ex.: Minha Startup"></label>
+        <label class="f">Seu nome<input id="f-resp" name="Responsavel" required placeholder="Quem responde pelo projeto"></label>
+        <label class="f">E-mail<input id="f-email" name="email" type="email" required placeholder="voce@empresa.com.br"></label>
+        <label class="f">WhatsApp<input id="f-whats" name="WhatsApp" type="tel" placeholder="(11) 90000-0000"></label>
+        <label class="f">Fase atual<select id="f-fase" name="Fase atual"></select></label>
+        <label class="f full">Mentoria<select id="f-ment" name="Mentoria"><option value="">Não preciso de mentoria agora</option><option value="busca">Quero receber mentoria</option><option value="em">Já estou em mentoria e quero entrar na vitrine</option></select></label>
+        <label class="f full">Por que quer entrar na TRAMPOOLIM?<textarea id="f-why" name="Por que quer entrar" rows="4" placeholder="O que você busca: investimento, sócios, parceiros, mentoria, clientes…"></textarea></label>
+        <label class="f full">Apresentação da empresa (opcional) <small>PDF, PowerPoint, Word ou imagem, até 10 MB.</small><input id="f-file" name="attachment" type="file" accept=".pdf,.ppt,.pptx,.doc,.docx,.key,.png,.jpg,.jpeg"></label>
         <div class="full" style="display:flex;gap:16px;align-items:center;flex-wrap:wrap">
           <button class="btn solid" type="submit">Enviar inscrição</button>
           <span class="note">A inscrição chega para a equipe TRAMPOOLIM analisar. Dúvidas: contato@trampoolim.com</span>
@@ -390,16 +392,17 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
   <section id="cadastro-mentor"><div class="wrap">
     <div class="sec-head"><h2>Cadastro de mentor</h2><p>Conte sua experiência e como quer ajudar. A equipe TRAMPOOLIM analisa e entra em contato antes de publicar seu perfil.</p></div>
     <form class="apply" id="mform" novalidate>
-      <label class="f">Nome completo<input id="m-nome" required></label>
-      <label class="f">E-mail<input id="m-email" type="email" required placeholder="voce@email.com"></label>
-      <label class="f">WhatsApp<input id="m-fone" placeholder="(11) 90000-0000"></label>
-      <label class="f">LinkedIn ou site<input id="m-link" placeholder="https://linkedin.com/in/..."></label>
-      <label class="f full">Áreas de atuação <small>Ex.: finanças, franquias, marketing digital, varejo, tecnologia</small><input id="m-area" required></label>
-      <label class="f full">Sua experiência<textarea id="m-bio" rows="4" placeholder="Resumo da sua trajetória e dos negócios em que já atuou"></textarea></label>
+      <label class="f">Nome completo<input id="m-nome" name="Nome" required></label>
+      <label class="f">E-mail<input id="m-email" name="email" type="email" required placeholder="voce@email.com"></label>
+      <label class="f">WhatsApp<input id="m-fone" name="WhatsApp" placeholder="(11) 90000-0000"></label>
+      <label class="f">LinkedIn ou site<input id="m-link" name="LinkedIn ou site" placeholder="https://linkedin.com/in/..."></label>
+      <label class="f full">Áreas de atuação <small>Ex.: finanças, franquias, marketing digital, varejo, tecnologia</small><input id="m-area" name="Areas de atuacao" required></label>
+      <label class="f full">Sua experiência<textarea id="m-bio" name="Experiencia" rows="4" placeholder="Resumo da sua trajetória e dos negócios em que já atuou"></textarea></label>
       <div class="f full" style="display:flex;flex-direction:column;gap:8px;font-weight:800;font-size:14px">Fases em que prefere ajudar
         <div class="checks" id="m-fases"></div></div>
-      <label class="f">Disponibilidade<select id="m-disp"><option>1 hora por semana</option><option>2 horas por mês</option><option>1 encontro por mês</option><option>Sob demanda</option></select></label>
-      <label class="f">Formato<select id="m-formato"><option>Online</option><option>Presencial em São Paulo</option><option>Online ou presencial</option></select></label>
+      <label class="f full">Currículo (opcional) <small>PDF ou Word, até 10 MB.</small><input id="m-file" name="attachment" type="file" accept=".pdf,.doc,.docx,.png,.jpg,.jpeg"></label>
+      <label class="f">Disponibilidade<select id="m-disp" name="Disponibilidade"><option>1 hora por semana</option><option>2 horas por mês</option><option>1 encontro por mês</option><option>Sob demanda</option></select></label>
+      <label class="f">Formato<select id="m-formato" name="Formato"><option>Online</option><option>Presencial em São Paulo</option><option>Online ou presencial</option></select></label>
       <div class="full" style="display:flex;gap:16px;align-items:center;flex-wrap:wrap">
         <button class="btn solid" type="submit" id="m-send">Enviar cadastro</button>
         <span class="note">Seus dados de contato ficam visíveis só para a equipe TRAMPOOLIM.</span>
@@ -797,11 +800,32 @@ $("#apply").addEventListener("submit", async e=>{
   const nome = $("#f-nome").value.trim(), email = $("#f-email").value.trim(), ok = $("#ok");
   ok.hidden = false;
   if(!nome || !email.includes("@")){ ok.className="msg err full"; ok.textContent="Preencha o nome e um e-mail válido para continuar."; return; }
-  const data = {nome, resp:$("#f-resp").value.trim(), email, fase:$("#f-fase").value, mentoria:$("#f-ment").value, why:$("#f-why").value.trim(), quando:new Date().toISOString()};
+  if(!fileOk($("#f-file"))){ ok.className="msg err full"; ok.textContent="O arquivo passa de 10 MB. Envie uma versão menor ou em PDF."; return; }
+  if(ON_SITE){ ok.className="msg full"; ok.textContent="Enviando…"; mailFormSubmit(e.target, "Nova empresa na TRAMPOOLIM: "+nome); return; }
+  const data = {nome, resp:$("#f-resp").value.trim(), email, whats:$("#f-whats").value.trim(), fase:$("#f-fase").value, mentoria:$("#f-ment").value, why:$("#f-why").value.trim(), quando:new Date().toISOString()};
   const r = await sendOwn("inscricoes", data);
-  if(r===true){ ok.className="msg full"; ok.textContent=`Inscrição de ${nome} enviada. A equipe TRAMPOOLIM vai entrar em contato pelo e-mail informado.`; e.target.reset(); }
+  if(r===true){ ok.className="msg full"; ok.textContent=`Inscrição de ${nome} enviada. A equipe TRAMPOOLIM vai entrar em contato pelo e-mail informado.`+($("#f-file").files.length?" O arquivo anexado só é enviado pelo site www.trampoolim.com.":""); e.target.reset(); }
   else { ok.className="msg err full"; ok.innerHTML = `Não foi possível enviar por aqui${r==="signin"?" (é preciso estar logado no claude.ai)":""}. <button type="button" class="btn sm" style="background:#fff;color:#B42318;border-color:#fff;margin-left:6px" id="copy-insc">Copiar dados</button> e envie para contato@trampoolim.com.`; $("#copy-insc").onclick=()=>copyText(Object.entries(data).map(([k,v])=>k+": "+v).join("\n")); }
 });
+
+/* envio por e-mail (FormSubmit) quando o site está no domínio próprio */
+const MAIL_TO = "contato@trampoolim.com";
+const ON_SITE = !/claude|claudeusercontent|anthropic/.test(location.hostname) && location.protocol.startsWith("http");
+function mailFormSubmit(form, subject){
+  const add=(n,v)=>{ let i=form.querySelector(`input[type=hidden][name="${n}"]`); if(!i){ i=document.createElement("input"); i.type="hidden"; i.name=n; form.appendChild(i);} i.value=v; };
+  add("_subject", subject); add("_captcha","false"); add("_template","table");
+  add("_next", location.origin + location.pathname + "#obrigado");
+  form.action = "https://formsubmit.co/" + MAIL_TO; form.method = "POST"; form.enctype = "multipart/form-data";
+  HTMLFormElement.prototype.submit.call(form);
+}
+async function mailAjax(subject, data){
+  try{
+    const r = await fetch("https://formsubmit.co/ajax/" + MAIL_TO, {method:"POST", headers:{"Content-Type":"application/json","Accept":"application/json"}, body:JSON.stringify({_subject:subject, _template:"table", ...data})});
+    return r.ok;
+  }catch(_){ return false; }
+}
+function fileOk(input){ const f=input&&input.files&&input.files[0]; return !f || f.size <= 10*1024*1024; }
+if(location.hash==="#obrigado"){ setTimeout(()=>toast("Recebemos seu envio! A equipe TRAMPOOLIM vai analisar e entrar em contato."),400); history.replaceState(null,"",location.pathname); }
 
 /* e-book: captura de lead + download */
 document.addEventListener("submit", async e=>{
@@ -814,6 +838,7 @@ document.addEventListener("submit", async e=>{
   }
   $("#eb-btn").disabled=true; msg.className="msg"; msg.textContent="Preparando o download…";
   const file=f.dataset.file;
+  if(ON_SITE){ mailAjax("Download do e-book Olavo: "+nome, {Nome:nome, WhatsApp:whats, email:email, Material:"E-book Olavo Lavanderia Express"}); }
   try{ await sendOwn("leads", {nome, whats, email, material:file, quando:new Date().toISOString()}); }catch(_){}
   let done=false;
   try{
@@ -832,7 +857,7 @@ document.addEventListener("submit", async e=>{
 
 /* mentores */
 let MENTORS = [], CANDS = [], INSCS = [], LEADS = [], inboxOn = false, draftPhoto = "";
-$("#m-fases").innerHTML = PHASES.map(p=>`<label><input type="checkbox" value="${p.id}"> ${p.name}</label>`).join("");
+$("#m-fases").innerHTML = PHASES.map(p=>`<label><input type="checkbox" name="Fases preferidas" value="${p.name}"> ${p.name}</label>`).join("");
 function normMentor(d){
   return {id:String(d.id||""), order:Number(d.order)||99, nome:String(d.nome||""), area:String(d.area||""), bio:String(d.bio||""),
     link:safeUrl(d.link), foto:safeImg(d.foto), fases:Array.isArray(d.fases)?d.fases.filter(f=>PHASES.some(p=>p.id===f)):[],
@@ -892,9 +917,11 @@ $("#mform").addEventListener("submit", async e=>{
   e.preventDefault();
   const ok = $("#m-ok"); ok.hidden = false;
   const data = {nome:$("#m-nome").value.trim(), email:$("#m-email").value.trim(), fone:$("#m-fone").value.trim(), link:$("#m-link").value.trim(),
-    area:$("#m-area").value.trim(), bio:$("#m-bio").value.trim(), fases:[...document.querySelectorAll("#m-fases input:checked")].map(i=>i.value),
+    area:$("#m-area").value.trim(), bio:$("#m-bio").value.trim(), fases:[...document.querySelectorAll("#m-fases input:checked")].map(i=>(PHASES.find(p=>p.name===i.value)||{}).id).filter(Boolean),
     disp:$("#m-disp").value, formato:$("#m-formato").value, quando:new Date().toISOString()};
   if(!data.nome || !data.email.includes("@") || !data.area){ ok.className="msg err full"; ok.textContent="Preencha nome, um e-mail válido e suas áreas de atuação."; return; }
+  if(!fileOk($("#m-file"))){ ok.className="msg err full"; ok.textContent="O arquivo passa de 10 MB. Envie uma versão menor ou em PDF."; return; }
+  if(ON_SITE){ ok.className="msg full"; ok.textContent="Enviando…"; mailFormSubmit(e.target, "Novo cadastro de mentor: "+data.nome); return; }
   if(data.link && !safeUrl(data.link)) data.link = "https://"+data.link.replace(/^\/+/,"");
   $("#m-send").disabled = true;
   const r = await sendOwn("candidaturas", data);
