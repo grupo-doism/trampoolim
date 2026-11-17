@@ -228,7 +228,7 @@ aside.d-side{display:flex;flex-direction:column;gap:16px}
 .ebook .row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 @media (max-width:560px){.ebook{grid-template-columns:1fr}.ebook img{max-width:160px}.ebook .row2{grid-template-columns:1fr}}
 footer{border-top:1px solid var(--line);padding:32px 0;font-size:14px;color:var(--muted)}
-footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
 
 @media (max-width:900px){
   .hero-grid,.d-grid{grid-template-columns:1fr}
@@ -270,7 +270,6 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
       <a href="#mentoria">Mentoria</a>
       <a href="#mentores">Mentores</a>
       <a href="#como">Como funciona</a>
-      <button type="button" class="master" id="master-btn">Entrar</button>
       <a class="cta" href="#inscricao">Quero entrar</a>
     </nav>
   </div>
@@ -423,7 +422,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 
 <footer>
   <div class="wrap">
-    <span style="display:inline-flex;align-items:center;gap:10px"><img src="logos/trampoolim-simbolo.png" alt="" width="34" height="34" style="border-radius:8px"><span><b style="color:var(--ink)">TRAMPOOLIM</b> · pool de empresas, startups, marcas e projetos · São Paulo, SP</span></span>
+    <span style="display:inline-flex;align-items:center;gap:10px"><button type="button" id="master-btn" aria-label="TRAMPOOLIM" title="TRAMPOOLIM" style="border:0;padding:0;background:none;cursor:default;line-height:0;border-radius:10px"><img src="logos/trampoolim-quadrado.png" alt="TRAMPOOLIM.com" width="64" height="64" style="border-radius:10px"></button><span><b style="color:var(--ink)">TRAMPOOLIM</b> · pool de empresas, startups, marcas e projetos · São Paulo, SP</span></span>
     <a href="mailto:contato@trampoolim.com" style="font-weight:700;color:var(--ink)">contato@trampoolim.com</a>
   </div>
 </footer>
@@ -630,8 +629,7 @@ function toast(text, err){
 function setMaster(on){
   masterOn = on;
   $("#master-bar").hidden = !on;
-  $("#master-btn").classList.toggle("on", on);
-  $("#master-btn").textContent = on ? "Master" : "Entrar";
+  $("#master-btn").style.outline = on ? "3px solid var(--accent)" : "";
   $("#add-mentor").hidden = !on;
   $("#cand-section").hidden = !on;
   $("#insc-inbox").hidden = !on;
@@ -639,6 +637,7 @@ function setMaster(on){
   renderGrid(); route(); renderInbox();
 }
 $("#master-btn").addEventListener("click", async ()=>{
+  if(typeof ON_SITE!=="undefined" && ON_SITE) return;
   if(masterOn){ setMaster(false); return; }
   if(!user){ toast("Para editar, abra esta página logado no claude.ai com a conta do master.", true); return; }
   let ok = false;
@@ -877,7 +876,7 @@ function renderMentors(){
       ${m.fases.length?`<p class="note">Ajuda nas fases: <b style="color:var(--ink)">${m.fases.map(f=>phaseOf(f).name).join(", ")}</b></p>`:""}
       ${m.link?`<a class="more" style="--c:var(--accent);align-self:flex-start" href="${esc(m.link)}" target="_blank" rel="noopener">Ver perfil ↗</a>`:""}
     </article>`);
-  if(!list.length) cards.push(`<article class="co open" style="grid-column:1/-1;align-items:flex-start"><h3>Os primeiros mentores estão chegando</h3><p>A rede de mentores TRAMPOOLIM está sendo formada. Quer ser um dos primeiros?</p><a class="btn solid" href="#mentores" data-scroll="cadastro-mentor">Quero ser mentor</a></article>`);
+  if(!list.length) cards.push(`<article class="co open" style="grid-column:1/-1;align-items:flex-start"><h3>Os primeiros mentores estão chegando</h3><p>A rede de mentores TRAMPOOLIM está sendo formada. Quer ser um dos primeiros? Preencha o cadastro logo abaixo.</p></article>`);
   $("#mentor-grid").innerHTML = cards.join("");
 }
 function renderInbox(){
